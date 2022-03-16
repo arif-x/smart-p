@@ -24,19 +24,10 @@
 </head>
 <body>
 	<div class="main-wrapper">
-		<div class="page-wrapper">
-			<!--Page Navbar Start-->
-			@include('layouts.template.navbar')
-			<!--Page Navbar Ends-->
-			<!--Page Sidebar Start-->
-			@include('layouts.template.sidebar')
-			<!--Page Sidebar Ends-->
+		<div class="page-wrapper full-page">
 			<!--Page Content Start-->
 			@yield('content')
 			<!--Page Content Ends-->
-			<!--Page Footer Start-->
-			@include('layouts.template.footer')
-			<!--Page Footer Ends-->
 		</div>
 	</div>
 
