@@ -6,7 +6,7 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Development Tracker</h6>
+          <h6 class="card-title">Nutrition Tracker</h6>
           <div class="card-description">
             <button class="btn btn-primary" id="tambah">Tambah</button>
           </div>
@@ -16,8 +16,9 @@
                 <tr>
                   <th>No.</th>
                   <th>User</th>
-                  <th>Delay</th>
-                  <th>Stimulasi</th>
+                  <th>Menu Makanan Sehat</th>
+                  <th>Kandungan Nutrisi</th>
+                  <th>Manfaat</th>
                   <th>Action</th>
                 </tr>
               </thead>  
@@ -31,7 +32,7 @@
                   </div>
                   <div class="modal-body">
                     <form id="theForm" name="theForm" class="form-horizontal">
-                      <input type="hidden" name="id_development_tracker" id="id_development_tracker">
+                      <input type="hidden" name="id_nutrition_tracker" id="id_nutrition_tracker">
 
                       <div class="form-group">
                         <label for="exampleInputText1">User</label>
@@ -39,19 +40,19 @@
                         </select>
                       </div> 
 
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="delay" class="control-label">Delay</label>
-                            <input type="number" class="form-control" id="delay" name="delay" required="">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="stimulasi" class="control-label">Stimulasi</label>
-                            <input type="text" class="form-control" id="stimulasi" name="stimulasi" required="">
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="menu_makanan_sehat" class="control-label">Menu Makanan Sehat</label>
+                        <input type="text" class="form-control" id="menu_makanan_sehat" name="menu_makanan_sehat" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="kandungan_nutrisi" class="control-label">Kandungan Nutrisi</label>
+                        <input type="text" class="form-control" id="kandungan_nutrisi" name="kandungan_nutrisi" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="manfaat" class="control-label">Manfaat</label>
+                        <input type="text" class="form-control" id="manfaat" name="manfaat" required="">
                       </div>
 
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
@@ -68,7 +69,7 @@
                     <h4 class="modal-title" id="theModalDeleteHeading"></h4>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="id_development_tracker" id="id_development_tracker_delete">
+                    <input type="hidden" name="id_nutrition_tracker" id="id_nutrition_tracker_delete">
                     <h4>Ingin Menghapus Data Ini?</h4>
                     <button type="submit" class="btn btn-danger w-100" id="saveDeteleBtn" value="delete">Hapus</button>
                   </div>
@@ -87,19 +88,20 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
-                ajax: "{{ route('admin.development-tracker.index') }}",
+                ajax: "{{ route('admin.nutrition-tracker.index') }}",
                 columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'nama', name: 'nama'},
-                {data: 'delay', name: 'delay'},
-                {data: 'stimulasi', name: 'stimulasi'},
+                {data: 'menu_makanan_sehat', name: 'menu_makanan_sehat'},
+                {data: 'kandungan_nutrisi', name: 'kandungan_nutrisi'},
+                {data: 'manfaat_makanan_sehat', name: 'manfaat_makanan_sehat'},
                 {data: 'action', name: 'action'},
                 ]
               });
 
               $('#tambah').click(function () {
                 $('#saveBtn').val("save");
-                $('#id_development_tracker').val('');
+                $('#id_nutrition_tracker').val('');
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
                 $('#user').val(null).trigger('change');
@@ -107,25 +109,26 @@
               });
 
               $('body').on('click', '.edit-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_nutrition_tracker = $(this).data('id');
+                $.get("{{ route('admin.nutrition-tracker.index') }}" +'/' + id_nutrition_tracker + '/edit', function (data) {
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
                   var user = new Option(data.nama, data.id_user, false, false);
                   $('#user').append(user).trigger('change');
-                  $('#id_development_tracker').val(data.id_development_tracker);
-                  $('#delay').val(data.delay);
-                  $('#stimulasi').val(data.stimulasi);
+                  $('#id_nutrition_tracker').val(data.id_nutrition_tracker);
+                  $('#menu_makanan_sehat').val(data.menu_makanan_sehat);
+                  $('#kandungan_nutrisi').val(data.kandungan_nutrisi);
+                  $('#manfaat').val(data.manfaat_makanan_sehat);
                   $('#theModal').modal('show');
                 })
               });
 
               $('body').on('click', '.delete-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_nutrition_tracker = $(this).data('id');
+                $.get("{{ route('admin.nutrition-tracker.index') }}" +'/' + id_nutrition_tracker + '/edit', function (data) {
                   $('#theModalDeleteHeading').html("Hapus");
                   $('#saveDeteleBtn').val("delete");
-                  $('#id_development_tracker_delete').val(data.id_development_tracker);
+                  $('#id_nutrition_tracker_delete').val(data.id_nutrition_tracker);
                   $('#theDeleteModal').modal('show');
                 })
               });
@@ -136,7 +139,7 @@
 
                 $.ajax({
                   data: $('#theForm').serialize(),
-                  url: "{{ route('admin.development-tracker.store') }}",
+                  url: "{{ route('admin.nutrition-tracker.store') }}",
                   type: "POST",
                   dataType: 'json',
                   success: function (data) {
@@ -152,10 +155,10 @@
               });
 
               $('#saveDeteleBtn').click(function (e) {
-                var id_development_tracker = $('#id_development_tracker_delete').val();
+                var id_nutrition_tracker = $('#id_nutrition_tracker_delete').val();
                 $.ajax({
                   type: "DELETE",
-                  url: "{{ route('admin.development-tracker.store') }}"+'/'+id_development_tracker,
+                  url: "{{ route('admin.nutrition-tracker.store') }}"+'/'+id_nutrition_tracker,
                   success: function (data) {
                     table.draw();
                     $('#theDeleteModal').modal('hide');

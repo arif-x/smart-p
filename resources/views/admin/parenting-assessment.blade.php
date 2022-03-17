@@ -6,7 +6,7 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Development Tracker</h6>
+          <h6 class="card-title">Parenting Assessment</h6>
           <div class="card-description">
             <button class="btn btn-primary" id="tambah">Tambah</button>
           </div>
@@ -16,8 +16,9 @@
                 <tr>
                   <th>No.</th>
                   <th>User</th>
-                  <th>Delay</th>
-                  <th>Stimulasi</th>
+                  <th>Pengukuran Pengetahun Parenting</th>
+                  <th>Pengukuran Parenting Self Efficacy</th>
+                  <th>Pengukuran Keterampilan Mengasuh Anak</th>
                   <th>Action</th>
                 </tr>
               </thead>  
@@ -31,7 +32,7 @@
                   </div>
                   <div class="modal-body">
                     <form id="theForm" name="theForm" class="form-horizontal">
-                      <input type="hidden" name="id_development_tracker" id="id_development_tracker">
+                      <input type="hidden" name="id_parenting_assessment" id="id_parenting_assessment">
 
                       <div class="form-group">
                         <label for="exampleInputText1">User</label>
@@ -39,19 +40,19 @@
                         </select>
                       </div> 
 
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="delay" class="control-label">Delay</label>
-                            <input type="number" class="form-control" id="delay" name="delay" required="">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="stimulasi" class="control-label">Stimulasi</label>
-                            <input type="text" class="form-control" id="stimulasi" name="stimulasi" required="">
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="pengukuran_pengetahuan_parenting" class="control-label">Pengukuran Pengetahun Parenting</label>
+                        <input type="text" class="form-control" id="pengukuran_pengetahuan_parenting" name="pengukuran_pengetahuan_parenting" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="pengukuran_parenting_self_efficacy" class="control-label">Pengukuran Parenting Self Efficacy</label>
+                        <input type="text" class="form-control" id="pengukuran_parenting_self_efficacy" name="pengukuran_parenting_self_efficacy" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="pengukuran_keterampilan_mengasuh_anak" class="control-label">Pengukuran Keterampilan Mengasuh Anak</label>
+                        <input type="text" class="form-control" id="pengukuran_keterampilan_mengasuh_anak" name="pengukuran_keterampilan_mengasuh_anak" required="">
                       </div>
 
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
@@ -68,7 +69,7 @@
                     <h4 class="modal-title" id="theModalDeleteHeading"></h4>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="id_development_tracker" id="id_development_tracker_delete">
+                    <input type="hidden" name="id_parenting_assessment" id="id_parenting_assessment_delete">
                     <h4>Ingin Menghapus Data Ini?</h4>
                     <button type="submit" class="btn btn-danger w-100" id="saveDeteleBtn" value="delete">Hapus</button>
                   </div>
@@ -87,19 +88,20 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
-                ajax: "{{ route('admin.development-tracker.index') }}",
+                ajax: "{{ route('admin.parenting-assessment.index') }}",
                 columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'nama', name: 'nama'},
-                {data: 'delay', name: 'delay'},
-                {data: 'stimulasi', name: 'stimulasi'},
+                {data: 'pengukuran_pengetahuan_parenting', name: 'pengukuran_pengetahuan_parenting'},
+                {data: 'pengukuran_parenting_self_efficacy', name: 'pengukuran_parenting_self_efficacy'},
+                {data: 'pengukuran_keterampilan_mengasuh_anak', name: 'pengukuran_keterampilan_mengasuh_anak'},
                 {data: 'action', name: 'action'},
                 ]
               });
 
               $('#tambah').click(function () {
                 $('#saveBtn').val("save");
-                $('#id_development_tracker').val('');
+                $('#id_parenting_assessment').val('');
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
                 $('#user').val(null).trigger('change');
@@ -107,25 +109,27 @@
               });
 
               $('body').on('click', '.edit-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_parenting_assessment = $(this).data('id');
+                $.get("{{ route('admin.parenting-assessment.index') }}" +'/' + id_parenting_assessment + '/edit', function (data) {
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
                   var user = new Option(data.nama, data.id_user, false, false);
                   $('#user').append(user).trigger('change');
-                  $('#id_development_tracker').val(data.id_development_tracker);
-                  $('#delay').val(data.delay);
-                  $('#stimulasi').val(data.stimulasi);
+                  $('#id_parenting_assessment').val(data.id_parenting_assessment);
+                  $('#pengukuran_pengetahuan_parenting').val(data.pengukuran_pengetahuan_parenting);
+                  $('#index_masa_tumbuh').val(data.index_masa_tumbuh);
+                  $('#pengukuran_parenting_self_efficacy').val(data.pengukuran_parenting_self_efficacy);
+                  $('#pengukuran_keterampilan_mengasuh_anak').val(data.pengukuran_keterampilan_mengasuh_anak);
                   $('#theModal').modal('show');
                 })
               });
 
               $('body').on('click', '.delete-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_parenting_assessment = $(this).data('id');
+                $.get("{{ route('admin.parenting-assessment.index') }}" +'/' + id_parenting_assessment + '/edit', function (data) {
                   $('#theModalDeleteHeading').html("Hapus");
                   $('#saveDeteleBtn').val("delete");
-                  $('#id_development_tracker_delete').val(data.id_development_tracker);
+                  $('#id_parenting_assessment_delete').val(data.id_parenting_assessment);
                   $('#theDeleteModal').modal('show');
                 })
               });
@@ -136,7 +140,7 @@
 
                 $.ajax({
                   data: $('#theForm').serialize(),
-                  url: "{{ route('admin.development-tracker.store') }}",
+                  url: "{{ route('admin.parenting-assessment.store') }}",
                   type: "POST",
                   dataType: 'json',
                   success: function (data) {
@@ -152,10 +156,10 @@
               });
 
               $('#saveDeteleBtn').click(function (e) {
-                var id_development_tracker = $('#id_development_tracker_delete').val();
+                var id_parenting_assessment = $('#id_parenting_assessment_delete').val();
                 $.ajax({
                   type: "DELETE",
-                  url: "{{ route('admin.development-tracker.store') }}"+'/'+id_development_tracker,
+                  url: "{{ route('admin.parenting-assessment.store') }}"+'/'+id_parenting_assessment,
                   success: function (data) {
                     table.draw();
                     $('#theDeleteModal').modal('hide');

@@ -6,7 +6,7 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Development Tracker</h6>
+          <h6 class="card-title">Consultation</h6>
           <div class="card-description">
             <button class="btn btn-primary" id="tambah">Tambah</button>
           </div>
@@ -16,8 +16,8 @@
                 <tr>
                   <th>No.</th>
                   <th>User</th>
-                  <th>Delay</th>
-                  <th>Stimulasi</th>
+                  <th>Guru PAUD</th>
+                  <th>Psikolog</th>
                   <th>Action</th>
                 </tr>
               </thead>  
@@ -31,7 +31,7 @@
                   </div>
                   <div class="modal-body">
                     <form id="theForm" name="theForm" class="form-horizontal">
-                      <input type="hidden" name="id_development_tracker" id="id_development_tracker">
+                      <input type="hidden" name="id_consultation" id="id_consultation">
 
                       <div class="form-group">
                         <label for="exampleInputText1">User</label>
@@ -39,19 +39,14 @@
                         </select>
                       </div> 
 
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="delay" class="control-label">Delay</label>
-                            <input type="number" class="form-control" id="delay" name="delay" required="">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="stimulasi" class="control-label">Stimulasi</label>
-                            <input type="text" class="form-control" id="stimulasi" name="stimulasi" required="">
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="guru_paud" class="control-label">Guru PAUD</label>
+                        <input type="text" class="form-control" id="guru_paud" name="guru_paud" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="psikolog" class="control-label">Psikolog</label>
+                        <input type="text" class="form-control" id="psikolog" name="psikolog" required="">
                       </div>
 
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
@@ -68,7 +63,7 @@
                     <h4 class="modal-title" id="theModalDeleteHeading"></h4>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="id_development_tracker" id="id_development_tracker_delete">
+                    <input type="hidden" name="id_consultation" id="id_consultation_delete">
                     <h4>Ingin Menghapus Data Ini?</h4>
                     <button type="submit" class="btn btn-danger w-100" id="saveDeteleBtn" value="delete">Hapus</button>
                   </div>
@@ -87,19 +82,19 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
-                ajax: "{{ route('admin.development-tracker.index') }}",
+                ajax: "{{ route('admin.consultation.index') }}",
                 columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'nama', name: 'nama'},
-                {data: 'delay', name: 'delay'},
-                {data: 'stimulasi', name: 'stimulasi'},
+                {data: 'guru_paud', name: 'guru_paud'},
+                {data: 'psikolog', name: 'psikolog'},
                 {data: 'action', name: 'action'},
                 ]
               });
 
               $('#tambah').click(function () {
                 $('#saveBtn').val("save");
-                $('#id_development_tracker').val('');
+                $('#id_consultation').val('');
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
                 $('#user').val(null).trigger('change');
@@ -107,25 +102,25 @@
               });
 
               $('body').on('click', '.edit-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_consultation = $(this).data('id');
+                $.get("{{ route('admin.consultation.index') }}" +'/' + id_consultation + '/edit', function (data) {
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
                   var user = new Option(data.nama, data.id_user, false, false);
                   $('#user').append(user).trigger('change');
-                  $('#id_development_tracker').val(data.id_development_tracker);
-                  $('#delay').val(data.delay);
-                  $('#stimulasi').val(data.stimulasi);
+                  $('#id_consultation').val(data.id_consultation);
+                  $('#guru_paud').val(data.guru_paud);
+                  $('#psikolog').val(data.psikolog);
                   $('#theModal').modal('show');
                 })
               });
 
               $('body').on('click', '.delete-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_consultation = $(this).data('id');
+                $.get("{{ route('admin.consultation.index') }}" +'/' + id_consultation + '/edit', function (data) {
                   $('#theModalDeleteHeading').html("Hapus");
                   $('#saveDeteleBtn').val("delete");
-                  $('#id_development_tracker_delete').val(data.id_development_tracker);
+                  $('#id_consultation_delete').val(data.id_consultation);
                   $('#theDeleteModal').modal('show');
                 })
               });
@@ -136,7 +131,7 @@
 
                 $.ajax({
                   data: $('#theForm').serialize(),
-                  url: "{{ route('admin.development-tracker.store') }}",
+                  url: "{{ route('admin.consultation.store') }}",
                   type: "POST",
                   dataType: 'json',
                   success: function (data) {
@@ -152,10 +147,10 @@
               });
 
               $('#saveDeteleBtn').click(function (e) {
-                var id_development_tracker = $('#id_development_tracker_delete').val();
+                var id_consultation = $('#id_consultation_delete').val();
                 $.ajax({
                   type: "DELETE",
-                  url: "{{ route('admin.development-tracker.store') }}"+'/'+id_development_tracker,
+                  url: "{{ route('admin.consultation.store') }}"+'/'+id_consultation,
                   success: function (data) {
                     table.draw();
                     $('#theDeleteModal').modal('hide');

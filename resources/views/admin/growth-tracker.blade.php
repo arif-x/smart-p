@@ -47,13 +47,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="berat_badan" class="control-label">Berat Badan</label>
-                            <input type="number" class="form-control" id="berat_badan" name="berat_badan" maxlength="50" required="">
+                            <input type="number" class="form-control" id="berat_badan" name="berat_badan" required="">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="index_masa_tumbuh" class="control-label">Index Masa Tumbuh</label>
-                            <input type="number" class="form-control" id="index_masa_tumbuh" name="index_masa_tumbuh" maxlength="50" required="">
+                            <input type="number" class="form-control" id="index_masa_tumbuh" name="index_masa_tumbuh" required="">
                           </div>
                         </div>
                       </div>
@@ -62,13 +62,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="lingkar_kepala" class="control-label">Lingkar Kepala</label>
-                            <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" maxlength="50" required="">
+                            <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" required="">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="lingkar_lengan_atas" class="control-label">Lingkar Lengan Atas</label>
-                            <input type="number" class="form-control" id="lingkar_lengan_atas" name="lingkar_lengan_atas" maxlength="50" required="">
+                            <input type="number" class="form-control" id="lingkar_lengan_atas" name="lingkar_lengan_atas" required="">
                           </div>
                         </div>
                       </div>
@@ -77,13 +77,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="lipatan_kulit" class="control-label">Lipatan Kulit</label>
-                            <input type="number" class="form-control" id="lipatan_kulit" name="lipatan_kulit" maxlength="50" required="">
+                            <input type="number" class="form-control" id="lipatan_kulit" name="lipatan_kulit" required="">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="tinggi_badan" class="control-label">Tinggi Badan</label>
-                            <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan" maxlength="50" required="">
+                            <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan" required="">
                           </div>
                         </div>
                       </div>

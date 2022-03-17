@@ -6,7 +6,7 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Development Tracker</h6>
+          <h6 class="card-title">Tips</h6>
           <div class="card-description">
             <button class="btn btn-primary" id="tambah">Tambah</button>
           </div>
@@ -16,8 +16,8 @@
                 <tr>
                   <th>No.</th>
                   <th>User</th>
-                  <th>Delay</th>
-                  <th>Stimulasi</th>
+                  <th>Menu Tips Kesehatan</th>
+                  <th>Perawatan Anak</th>
                   <th>Action</th>
                 </tr>
               </thead>  
@@ -31,7 +31,7 @@
                   </div>
                   <div class="modal-body">
                     <form id="theForm" name="theForm" class="form-horizontal">
-                      <input type="hidden" name="id_development_tracker" id="id_development_tracker">
+                      <input type="hidden" name="id_tips" id="id_tips">
 
                       <div class="form-group">
                         <label for="exampleInputText1">User</label>
@@ -39,19 +39,14 @@
                         </select>
                       </div> 
 
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="delay" class="control-label">Delay</label>
-                            <input type="number" class="form-control" id="delay" name="delay" required="">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="stimulasi" class="control-label">Stimulasi</label>
-                            <input type="text" class="form-control" id="stimulasi" name="stimulasi" required="">
-                          </div>
-                        </div>
+                      <div class="form-group">
+                        <label for="menu_tips_kesehatan" class="control-label">Menu Tips Kesehatan</label>
+                        <input type="text" class="form-control" id="menu_tips_kesehatan" name="menu_tips_kesehatan" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="perawatan_anak" class="control-label">Perawatan Anak</label>
+                        <input type="text" class="form-control" id="perawatan_anak" name="perawatan_anak" required="">
                       </div>
 
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
@@ -68,7 +63,7 @@
                     <h4 class="modal-title" id="theModalDeleteHeading"></h4>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="id_development_tracker" id="id_development_tracker_delete">
+                    <input type="hidden" name="id_tips" id="id_tips_delete">
                     <h4>Ingin Menghapus Data Ini?</h4>
                     <button type="submit" class="btn btn-danger w-100" id="saveDeteleBtn" value="delete">Hapus</button>
                   </div>
@@ -87,19 +82,19 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
-                ajax: "{{ route('admin.development-tracker.index') }}",
+                ajax: "{{ route('admin.tips.index') }}",
                 columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'nama', name: 'nama'},
-                {data: 'delay', name: 'delay'},
-                {data: 'stimulasi', name: 'stimulasi'},
+                {data: 'menu_tips_kesehatan', name: 'menu_tips_kesehatan'},
+                {data: 'perawatan_anak', name: 'perawatan_anak'},
                 {data: 'action', name: 'action'},
                 ]
               });
 
               $('#tambah').click(function () {
                 $('#saveBtn').val("save");
-                $('#id_development_tracker').val('');
+                $('#id_tips').val('');
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
                 $('#user').val(null).trigger('change');
@@ -107,25 +102,25 @@
               });
 
               $('body').on('click', '.edit-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_tips = $(this).data('id');
+                $.get("{{ route('admin.tips.index') }}" +'/' + id_tips + '/edit', function (data) {
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
                   var user = new Option(data.nama, data.id_user, false, false);
                   $('#user').append(user).trigger('change');
-                  $('#id_development_tracker').val(data.id_development_tracker);
-                  $('#delay').val(data.delay);
-                  $('#stimulasi').val(data.stimulasi);
+                  $('#id_tips').val(data.id_tips);
+                  $('#menu_tips_kesehatan').val(data.menu_tips_kesehatan);
+                  $('#perawatan_anak').val(data.perawatan_anak);
                   $('#theModal').modal('show');
                 })
               });
 
               $('body').on('click', '.delete-data', function () {
-                var id_development_tracker = $(this).data('id');
-                $.get("{{ route('admin.development-tracker.index') }}" +'/' + id_development_tracker + '/edit', function (data) {
+                var id_tips = $(this).data('id');
+                $.get("{{ route('admin.tips.index') }}" +'/' + id_tips + '/edit', function (data) {
                   $('#theModalDeleteHeading').html("Hapus");
                   $('#saveDeteleBtn').val("delete");
-                  $('#id_development_tracker_delete').val(data.id_development_tracker);
+                  $('#id_tips_delete').val(data.id_tips);
                   $('#theDeleteModal').modal('show');
                 })
               });
@@ -136,7 +131,7 @@
 
                 $.ajax({
                   data: $('#theForm').serialize(),
-                  url: "{{ route('admin.development-tracker.store') }}",
+                  url: "{{ route('admin.tips.store') }}",
                   type: "POST",
                   dataType: 'json',
                   success: function (data) {
@@ -152,10 +147,10 @@
               });
 
               $('#saveDeteleBtn').click(function (e) {
-                var id_development_tracker = $('#id_development_tracker_delete').val();
+                var id_tips = $('#id_tips_delete').val();
                 $.ajax({
                   type: "DELETE",
-                  url: "{{ route('admin.development-tracker.store') }}"+'/'+id_development_tracker,
+                  url: "{{ route('admin.tips.store') }}"+'/'+id_tips,
                   success: function (data) {
                     table.draw();
                     $('#theDeleteModal').modal('hide');

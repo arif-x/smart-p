@@ -14,8 +14,8 @@ class CreateParentingAssessment extends Migration
     public function up()
     {
         Schema::create('parenting_assessment', function (Blueprint $table) {
-            $table->increments('parenting_assessment');
-            $table->integer('id_parenting_assessment');
+            $table->increments('id_parenting_assessment');
+            $table->integer('id_user');
             $table->string('pengukuran_pengetahuan_parenting');
             $table->string('pengukuran_parenting_self_efficacy');
             $table->string('pengukuran_keterampilan_mengasuh_anak');
