@@ -67,7 +67,6 @@
 	<!-- endinject -->
 	<!-- custom js for this page -->
 	<script src="{{ URL::asset('/assets/js/dashboard.js') }}"></script>
-	<script src="{{ URL::asset('/assets/js/datepicker.js') }}"></script>
 	<!-- end custom js for this page -->
 </body>
 </html>    

@@ -5,6 +5,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Web\Admin\GetUserDataController;
 use App\Http\Controllers\Web\Admin\GrowthTrackerController;
 use App\Http\Controllers\Web\Admin\DevelopmentTrackerController;
+use App\Http\Controllers\Web\Admin\VaccinationTrackerController;
 use App\Http\Controllers\Web\Admin\NutritionTrackerController;
 use App\Http\Controllers\Web\Admin\TipsController;
 use App\Http\Controllers\Web\Admin\ConsultationController;
@@ -38,6 +39,7 @@ Route::group([
     Route::post('get-user-data', [GetUserDataController::class, 'getUser'])->name('admin.get-user-data');
     Route::resource('growth-tracker', GrowthTrackerController::class, ['as' => 'admin']);
     Route::resource('development-tracker', DevelopmentTrackerController::class, ['as' => 'admin']);
+    Route::resource('vaccination-tracker', VaccinationTrackerController::class, ['as' => 'admin']);
     Route::resource('nutrition-tracker', NutritionTrackerController::class, ['as' => 'admin']);
     Route::resource('tips', TipsController::class, ['as' => 'admin']);
     Route::resource('consultation', ConsultationController::class, ['as' => 'admin']);
