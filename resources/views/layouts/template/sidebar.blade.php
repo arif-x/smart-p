@@ -31,7 +31,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="dashboard-one.html" class="nav-link">
+        <a href="{{ route('admin.vaccination-tracker.index') }}" class="nav-link">
           <i class="link-icon" data-feather="heart"></i>
           <span class="link-title">Vaccination</span>
         </a>
