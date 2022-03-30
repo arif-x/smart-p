@@ -45,6 +45,7 @@
                                     </button>
                                     <a href="{{ route('first') }}" class="btn btn-primary">Kembali ke Halaman Awal</a>
                                     <a href="{{ route('register') }}" class="d-block mt-3 text-muted">Belum Menjadi User? Daftar</a>
+                                    <a href="{{ url('/auth/google') }}" class="login100-form-btn"><i class="fa fa-google"></i>&nbsp Google</a>
                                 </div>
                             </form>
                         </div>

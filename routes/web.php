@@ -5,12 +5,12 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Web\Admin\GetUserDataController;
 use App\Http\Controllers\Web\Admin\GrowthTrackerController;
 use App\Http\Controllers\Web\Admin\DevelopmentTrackerController;
-use App\Http\Controllers\Web\Admin\VaccinationTrackerController;
 use App\Http\Controllers\Web\Admin\NutritionTrackerController;
 use App\Http\Controllers\Web\Admin\TipsController;
 use App\Http\Controllers\Web\Admin\ConsultationController;
 use App\Http\Controllers\Web\Admin\ParentingController;
 use App\Http\Controllers\Web\Admin\ParentingAssessmentController;
+use App\Http\Controllers\Web\Admin\VaccinationTrackerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +28,21 @@ Route::get('/', function () {
 })->name('first');
 
 Auth::routes();
+Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
+Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
+
+Route::group([
+    'prefix' => 'api',
+    'middleware' => ['auth.basic', 'json']
+], function(){
+    Route::resource('anak', App\Http\Controllers\Api\User\AnakController::class, ['as' => 'api']);
+    Route::resource('artikel', App\Http\Controllers\Api\User\ArtikelController::class, ['as' => 'api']);
+    Route::resource('admin/artikel', App\Http\Controllers\Api\Admin\ArtikelController::class, ['as' => 'api']);
+});
 
 Route::group([
     'prefix' => 'admin',
