@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Vaksinasi;
-use Auth;
+use App\Models\RecordVaksinasi;
 
-class VaksinasiController extends Controller
+class RecordVaksinasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +15,16 @@ class VaksinasiController extends Controller
      */
     public function index()
     {
-        $data = Vaksinasi::where('id_user', Auth::user()->id_user)->get();
+        $data = RecordVaksinasi::get();
         if(empty($data)){
             return response()->json([
-                'Success' => 'Data kosong'
+                'error' => false,
+                'message' => 'Data Kosong'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data didapat',
+                'success' => true,
+                'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
         }
@@ -37,26 +38,27 @@ class VaksinasiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Anak::updateOrCreate(
-            ['id_anak' => $request->id_anak],
+        $data = RecordVaksinasi::updateOrCreate(
+            ['id_record_vaksinasi' => $request->id_record_vaksinasi],
             [
-                'id_user' => Auth::user()->id_user,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'nama_anak' => $request->nama_anak,
-                'nama_panggilan' => $request->nama_panggilan
+                'id_anak' => $request->id_anak,
+                'tanggal' => $request->tanggal,
+                'id_vaksin' => $request->id_vaksin,
             ]
         );
 
         if(!($data)){
             return response()->json([
-                'Error' => 'Data nggak ditambah/edit'
+                'error' => false,
+                'message' => 'Data Gagal Dibuat/Diedit'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data ditambah/edit',
-                'data' => $data
+                'success' => true,
+                'message' => 'Data Dibuat/Diedit',
+                'data' => [$data]
             ], 200);
-        }
+        } 
     }
 
     /**
@@ -67,19 +69,20 @@ class VaksinasiController extends Controller
      */
     public function show($id)
     {
-        $data = Vaksinasi::find($id);
+        $data = RecordVaksinasi::find($id);
         if(empty($data)){
             return response()->json([
-                'Error' => 'Data nggak ada'
+                'error' => false,
+                'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data ada',
-                'data' => $data
+                'success' => true,
+                'message' => 'Data Didapat',
+                'data' => [$data]
             ], 200);
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -89,15 +92,16 @@ class VaksinasiController extends Controller
      */
     public function destroy($id)
     {
-        $data = Vaksinasi::find($id)->delete();
+        $data = RecordVaksinasi::find($id)->delete();
         if(!($data)){
             return response()->json([
-                'Error' => 'Data nggak ada'
+                'error' => false
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data dihapus',
-                'data' => $data
+                'success' => true,
+                'message' => 'Data Dihapus',
+                'data' => [$data]
             ], 200);
         }
     }

@@ -1,7 +1,7 @@
 <nav class="sidebar">
   <div class="sidebar-header">
     <a href="#" class="sidebar-brand">
-      MAT<span> PI</span>
+      Smart<span> P</span>
     </a>
     <div class="sidebar-toggler not-active">
       <span></span>
@@ -64,6 +64,12 @@
         <a href="{{ route('admin.parenting-assessment.index') }}" class="nav-link">
           <i class="link-icon" data-feather="users"></i>
           <span class="link-title">Parenting Assessment</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin.vaksin.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="heart"></i>
+          <span class="link-title">Vaccine</span>
         </a>
       </li>
       <li class="nav-item">

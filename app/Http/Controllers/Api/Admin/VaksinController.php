@@ -1,17 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Anak;
-use App\Models\User;
+use App\Models\Vaksin;
 use Auth;
 
-class AnakController extends Controller
+class VaksinController extends Controller
 {
-    public function index(){
-        $data = Anak::where('id_user', Auth::user()->id_user)->get();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data = Vaksin::get();
         if(empty($data)){
             return response()->json([
                 'error' => false,
@@ -26,18 +31,21 @@ class AnakController extends Controller
         }
     }
 
-    public function store(Request $request){
-        $data = Anak::updateOrCreate(
-            ['id_anak' => $request->id_anak],
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = Vaksin::updateOrCreate(
+            ['id_vaksin' => $request->id_vaksin],
             [
-                'id_user' => Auth::user()->id_user,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'nama_anak' => $request->nama_anak,
-                'nama_panggilan' => $request->nama_panggilan,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'minggu_kehamilan' => $request->minggu_kehamilan,
-                'tinggi_badan_lahir' => $request->tinggi_badan_lahir,
-                'berat_badan_lahir' => $request->berat_badan_lahir
+                'nama_vaksin' => $request->nama_vaksin,
+                'jadwal_vaksin' => $request->jadwal_vaksin,
+                'keterangan_vaksin' => $request->keterangan_vaksin,
             ]
         );
 
@@ -47,25 +55,23 @@ class AnakController extends Controller
                 'message' => 'Data Gagal Dibuat/Diedit'
             ], 201);
         } else {
-
-            $check = Anak::where('id_user', Auth::user()->id_user)->first();
-
-            if(empty($check)){
-                User::where('id_user', Auth::user()->id_user)->update([
-                    'status' => 2
-                ]); 
-            }
-
             return response()->json([
                 'success' => true,
                 'message' => 'Data Dibuat/Diedit',
                 'data' => [$data]
             ], 200);
-        }
+        } 
     }
 
-    public function show($id){
-        $data = Anak::where('id_user', Auth::user()->id_user)->find($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data = Vaksin::find($id);
         if(empty($data)){
             return response()->json([
                 'error' => false,
@@ -80,8 +86,16 @@ class AnakController extends Controller
         }
     }
 
-    public function destroy($id){
-        $data = Anak::where('id_user', Auth::user()->id_user)->find($id)->delete();
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $data = Vaksin::find($id)->delete();
         if(!($data)){
             return response()->json([
                 'error' => false,

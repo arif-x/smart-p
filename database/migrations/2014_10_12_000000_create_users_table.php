@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('google_id');
             $table->integer('role')->default('2');
+            $table->integer('status')->default('1');
             $table->rememberToken();
         });
     }

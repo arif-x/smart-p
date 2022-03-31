@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Api\Auth\AuthController;
+
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Web\Admin\GetUserDataController;
 use App\Http\Controllers\Web\Admin\GrowthTrackerController;
@@ -11,6 +14,7 @@ use App\Http\Controllers\Web\Admin\ConsultationController;
 use App\Http\Controllers\Web\Admin\ParentingController;
 use App\Http\Controllers\Web\Admin\ParentingAssessmentController;
 use App\Http\Controllers\Web\Admin\VaccinationTrackerController;
+use App\Http\Controllers\Web\Admin\VaksinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +39,40 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
 
+
 Route::group([
     'prefix' => 'api',
     'middleware' => ['auth.basic', 'json']
 ], function(){
     Route::resource('anak', App\Http\Controllers\Api\User\AnakController::class, ['as' => 'api']);
     Route::resource('artikel', App\Http\Controllers\Api\User\ArtikelController::class, ['as' => 'api']);
-    Route::resource('admin/artikel', App\Http\Controllers\Api\Admin\ArtikelController::class, ['as' => 'api']);
+
+    Route::group([
+        'middleware' => 'anak'
+    ], function(){
+        Route::resource('record-perkembangan', App\Http\Controllers\Api\User\RecordPerkembanganController::class, ['as' => 'api']);
+        Route::resource('record-vaksinasi', App\Http\Controllers\Api\User\RecordVaksinasiController::class, ['as' => 'api']);
+    });
+
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => 'admin'
+    ], function(){
+        Route::resource('artikel', App\Http\Controllers\Api\Admin\ArtikelController::class, ['as' => 'api']);
+        Route::resource('vaksin', App\Http\Controllers\Api\Admin\VaksinController::class, ['as' => 'api']);
+    });
+});
+
+Route::group([
+    'prefix' => 'api'
+], function(){
+    Route::group([
+        'prefix' => 'auth'
+    ], function(){
+        Route::post('register', [App\Http\Controllers\Api\Auth\AuthController::class, 'register'])->name('auth.register');
+        Route::post('login', [App\Http\Controllers\Api\Auth\AuthController::class, 'login'])->name('auth.login');
+        Route::post('logout', [App\Http\Controllers\Api\Auth\AuthController::class, 'logout'])->name('auth.logout');
+    });
 });
 
 Route::group([
@@ -56,5 +87,6 @@ Route::group([
     Route::resource('consultation', ConsultationController::class, ['as' => 'admin']);
     Route::resource('parenting', ParentingController::class, ['as' => 'admin']);
     Route::resource('parenting-assessment', ParentingAssessmentController::class, ['as' => 'admin']);
+    Route::resource('vaksin', VaksinController::class, ['as' => 'admin']);
 });
 

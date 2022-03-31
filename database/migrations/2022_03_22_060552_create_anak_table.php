@@ -24,10 +24,6 @@ class CreateAnakTable extends Migration
             $table->string('tinggi_badan_lahir');
             $table->string('berat_badan_lahir');
             $table->string('lingkar_kepala_lahir');
-            $table->string('tinggi_badan_perkembangan');
-            $table->string('berat_badan_perkembangan');
-            $table->string('lingkar_kepala_perkembangan');
-            $table->string('status_vaksin');
         });
     }
 

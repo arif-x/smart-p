@@ -19,11 +19,13 @@ class ArtikelController extends Controller
         $data = Artikel::get();
         if(empty($data)){
             return response()->json([
-                'Success' => 'Data kosong'
+                'error' => false,
+                'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data didapat',
+                'success' => true,
+                'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
         }
@@ -40,12 +42,14 @@ class ArtikelController extends Controller
         $data = Artikel::find($id);
         if(empty($data)){
             return response()->json([
-                'Error' => 'Data nggak ada'
+                'error' => false,
+                'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data ada',
-                'data' => $data
+                'success' => true,
+                'message' => 'Data Didapat',
+                'data' => [$data]
             ], 200);
         }
     }

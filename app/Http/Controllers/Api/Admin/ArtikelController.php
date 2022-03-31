@@ -19,11 +19,13 @@ class ArtikelController extends Controller
         $data = Artikel::get();
         if(empty($data)){
             return response()->json([
-                'Success' => 'Data kosong'
+                'error' => false,
+                'message' => 'Data Kosong'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data didapat',
+                'success' => true,
+                'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
         }
@@ -50,11 +52,13 @@ class ArtikelController extends Controller
 
         if(!($data)){
             return response()->json([
-                'Error' => 'Data nggak ditambah/edit'
+                'error' => false,
+                'message' => 'Data Gagal Dibuat/Diedit'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data ditambah/edit',
+                'success' => true,
+                'message' => 'Data Dibuat/Diedit',
                 'data' => $data
             ], 200);
         } 
@@ -71,11 +75,13 @@ class ArtikelController extends Controller
         $data = Artikel::find($id);
         if(empty($data)){
             return response()->json([
-                'Error' => 'Data nggak ada'
+                'error' => false,
+                'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data ada',
+                'success' => true,
+                'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
         }
@@ -93,11 +99,13 @@ class ArtikelController extends Controller
         $data = Artikel::find($id)->delete();
         if(!($data)){
             return response()->json([
-                'Error' => 'Data nggak ada'
+                'error' => false,
+                'message' => 'Data Gagal Dihapus'
             ], 201);
         } else {
             return response()->json([
-                'Success' => 'Data dihapus',
+                'success' => true,
+                'message' => 'Data Dihapus',
                 'data' => $data
             ], 200);
         }
