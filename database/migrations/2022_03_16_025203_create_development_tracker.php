@@ -15,7 +15,7 @@ class CreateDevelopmentTracker extends Migration
     {
         Schema::create('development_tracker', function (Blueprint $table) {
             $table->increments('id_development_tracker');
-            $table->integer('id_user');
+            $table->integer('id_anak');
             $table->string('delay');
             $table->string('stimulasi');
         });

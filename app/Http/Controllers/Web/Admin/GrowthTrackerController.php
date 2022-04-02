@@ -10,7 +10,7 @@ use DataTables;
 class GrowthTrackerController extends Controller
 {
 
-    private $profile = 'profile';
+    private $anak = 'anak';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class GrowthTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = GrowthTracker::join($this->profile, 'profile.id_user', '=', 'growth_tracker.id_user')->orderBy('id_growth_tracker')->get();
+        $data = GrowthTracker::join($this->anak, 'anak.id_anak', '=', 'growth_tracker.id_anak')->orderBy('id_growth_tracker')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -46,7 +46,7 @@ class GrowthTrackerController extends Controller
         GrowthTracker::updateOrCreate(
             ['id_growth_tracker' => $request->id_growth_tracker],
             [
-                'id_user' => $request->user,
+                'id_anak' => $request->anak,
                 'berat_badan' => $request->berat_badan,
                 'index_masa_tumbuh' => $request->index_masa_tumbuh,
                 'lingkar_kepala' => $request->lingkar_kepala,
@@ -66,7 +66,7 @@ class GrowthTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = GrowthTracker::join($this->profile, 'profile.id_user', '=', 'growth_tracker.id_user')->find($id);
+        $data = GrowthTracker::join($this->anak, 'anak.id_anak', '=', 'growth_tracker.id_anak')->find($id);
         return response()->json($data);
     }
 

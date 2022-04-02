@@ -9,7 +9,7 @@ use App\Models\DevelopmentTracker;
 
 class DevelopmentTrackerController extends Controller
 {
-    private $profile = 'profile';
+    private $danak = 'danak';
 
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class DevelopmentTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = DevelopmentTracker::join($this->profile, 'profile.id_user', '=', 'development_tracker.id_user')->orderBy('id_development_tracker')->get();
+        $data = DevelopmentTracker::join($this->danak, 'danak.did_anak', '=', 'development_tracker.did_anak')->orderBy('id_development_tracker')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -45,7 +45,7 @@ class DevelopmentTrackerController extends Controller
         DevelopmentTracker::updateOrCreate(
             ['id_development_tracker' => $request->id_development_tracker],
             [
-                'id_user' => $request->user,
+                'did_anak' => $request->anak,
                 'delay' => $request->delay,
                 'stimulasi' => $request->stimulasi,
             ]
@@ -61,7 +61,7 @@ class DevelopmentTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = DevelopmentTracker::join($this->profile, 'profile.id_user', '=', 'development_tracker.id_user')->find($id);
+        $data = DevelopmentTracker::join($this->danak, 'danak.did_anak', '=', 'development_tracker.did_anak')->find($id);
         return response()->json($data);
     }
 

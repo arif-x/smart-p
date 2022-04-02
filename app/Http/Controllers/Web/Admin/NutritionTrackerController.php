@@ -9,7 +9,7 @@ use App\Models\NutritionTracker;
 
 class NutritionTrackerController extends Controller
 {
-    private $profile = 'profile';
+    private $anak = 'anak';
 
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class NutritionTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = NutritionTracker::join($this->profile, 'profile.id_user', '=', 'nutrition_tracker.id_user')->orderBy('id_nutrition_tracker')->get();
+        $data = NutritionTracker::join($this->anak, 'anak.id_anak', '=', 'nutrition_tracker.id_anak')->orderBy('id_nutrition_tracker')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -45,7 +45,7 @@ class NutritionTrackerController extends Controller
         NutritionTracker::updateOrCreate(
             ['id_nutrition_tracker' => $request->id_nutrition_tracker],
             [
-                'id_user' => $request->user,
+                'id_anak' => $request->anak,
                 'menu_makanan_sehat' => $request->menu_makanan_sehat,
                 'kandungan_nutrisi' => $request->kandungan_nutrisi,
                 'manfaat_makanan_sehat' => $request->manfaat,
@@ -62,7 +62,7 @@ class NutritionTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = NutritionTracker::join($this->profile, 'profile.id_user', '=', 'nutrition_tracker.id_user')->find($id);
+        $data = NutritionTracker::join($this->anak, 'anak.id_anak', '=', 'nutrition_tracker.id_anak')->find($id);
         return response()->json($data);
     }
 

@@ -13,16 +13,16 @@ class GetUserDataController extends Controller{
         $search = $request->search;
 
         if($search == ''){
-            $data = GetUserData::orderby('nama','asc')->select('id_user','nama')->limit(5)->get();
+            $data = GetUserData::orderby('nama_anak','asc')->select('id_user','nama_anak')->limit(5)->get();
         } else {
-            $data = GetUserData::orderby('nama','asc')->select('id_user','nama')->where('nama', 'like', '%' .$search . '%')->get();
+            $data = GetUserData::orderby('nama_anak','asc')->select('id_user','nama_anak')->where('nama_anak', 'like', '%' .$search . '%')->get();
         }
 
         $response = array();
         foreach($data as $datas){
             $response[] = array(
-                "id"=>$datas->id_user,
-                "text"=>$datas->nama
+                "id"=>$datas->id_anak,
+                "text"=>$datas->nama_anak
             );
         }
 

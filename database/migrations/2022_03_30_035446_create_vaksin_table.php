@@ -18,6 +18,7 @@ class CreateVaksinTable extends Migration
             $table->string('nama_vaksin');
             $table->string('jadwal_vaksin');
             $table->string('keterangan_vaksin');
+            $table->string('id_bahasa');
         });
     }
 

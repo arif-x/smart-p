@@ -15,7 +15,7 @@
               <thead>
                 <tr>
                   <th>No.</th>
-                  <th>User</th>
+                  <th>anak</th>
                   <th>Menu Tips Kesehatan</th>
                   <th>Perawatan Anak</th>
                   <th>Action</th>
@@ -34,8 +34,8 @@
                       <input type="hidden" name="id_tips" id="id_tips">
 
                       <div class="form-group">
-                        <label for="exampleInputText1">User</label>
-                        <select class="form-control" id="user" name="user">
+                        <label for="exampleInputText1">anak</label>
+                        <select class="form-control" id="anak" name="anak">
                         </select>
                       </div> 
 
@@ -97,7 +97,7 @@
                 $('#id_tips').val('');
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
-                $('#user').val(null).trigger('change');
+                $('#anak').val(null).trigger('change');
                 $('#theModal').modal('show');
               });
 
@@ -106,8 +106,8 @@
                 $.get("{{ route('admin.tips.index') }}" +'/' + id_tips + '/edit', function (data) {
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
-                  var user = new Option(data.nama, data.id_user, false, false);
-                  $('#user').append(user).trigger('change');
+                  var anak = new Option(data.nama, data.id_anak, false, false);
+                  $('#anak').append(anak).trigger('change');
                   $('#id_tips').val(data.id_tips);
                   $('#menu_tips_kesehatan').val(data.menu_tips_kesehatan);
                   $('#perawatan_anak').val(data.perawatan_anak);
@@ -161,10 +161,10 @@
                 });
               });
 
-              $("#user").select2({
+              $("#anak").select2({
                 theme: 'bootstrap4',
                 ajax: { 
-                  url: "{{route('admin.get-user-data')}}",
+                  url: "{{route('admin.get-anak-data')}}",
                   type: "post",
                   dataType: 'json',
                   delay: 250,

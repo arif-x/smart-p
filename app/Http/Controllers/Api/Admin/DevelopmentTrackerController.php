@@ -1,21 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RecordPerkembangan;
+use App\Models\DevelopementTracker;
 
-class RecordPerkembanganController extends Controller
+class DevelopementTrackerController extends Controller
 {
+
+    private $profile = 'profile';
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $data = RecordPerkembangan::where('id_anak', $request->id_anak)->get();
+        $data = DevelopementTracker::join($this->profile, 'profile.id_user', '=', 'development_tracker.id_user')->orderBy('id_development_tracker')->get();
+
         if(empty($data)){
             return response()->json([
                 'status' => false,
@@ -25,7 +29,7 @@ class RecordPerkembanganController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Didapat',
-                'data' => $data
+                'data' => [$data]
             ], 200);
         }
     }
@@ -38,16 +42,14 @@ class RecordPerkembanganController extends Controller
      */
     public function store(Request $request)
     {
-        $data = RecordPerkembangan::updateOrCreate(
-            ['id_record_perkembangan' => $request->id_record_perkembangan],
+        $data = DevelopmentTracker::updateOrCreate(
+            ['id_development_tracker' => $request->id_development_tracker],
             [
-                'id_anak' => $request->id_anak,
-                'tanggal' => $request->tanggal,
-                'tinggi_badan_perkembangan' => $request->tinggi_badan_perkembangan,
-                'berat_badan_perkembangan' => $request->berat_badan_perkembangan,
-                'lingkar_kepala_perkembangan' => $request->lingkar_kepala_perkembangan,
+                'id_user' => $request->user,
+                'delay' => $request->delay,
+                'stimulasi' => $request->stimulasi,
             ]
-        );
+        );  
 
         if(!($data)){
             return response()->json([
@@ -71,7 +73,7 @@ class RecordPerkembanganController extends Controller
      */
     public function show($id)
     {
-        $data = RecordPerkembangan::find($id);
+        $data = DevelopementTracker::find($id);
         if(empty($data)){
             return response()->json([
                 'status' => false,
@@ -94,7 +96,7 @@ class RecordPerkembanganController extends Controller
      */
     public function destroy($id)
     {
-        $data = RecordPerkembangan::find($id)->delete();
+        $data = DevelopementTracker::find($id)->delete();
         if(!($data)){
             return response()->json([
                 'status' => false,

@@ -15,7 +15,7 @@ class CreateGrowthTracker extends Migration
     {
         Schema::create('growth_tracker', function (Blueprint $table) {
             $table->increments('id_growth_tracker');
-            $table->integer('id_user');
+            $table->integer('id_anak');
             $table->string('berat_badan');
             $table->string('index_masa_tumbuh');
             $table->string('lingkar_kepala');

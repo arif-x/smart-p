@@ -9,7 +9,7 @@ use App\Models\VaccinationTracker;
 
 class VaccinationTrackerController extends Controller
 {
-    private $profile = 'profile';
+    private $anak = 'anak';
 
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class VaccinationTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = VaccinationTracker::join($this->profile, 'profile.id_user', '=', 'vaccination_tracker.id_user')->orderBy('id_vaccination_tracker')->get();
+        $data = VaccinationTracker::join($this->anak, 'anak.id_anak', '=', 'vaccination_tracker.id_anak')->orderBy('id_vaccination_tracker')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -45,7 +45,7 @@ class VaccinationTrackerController extends Controller
         VaccinationTracker::updateOrCreate(
             ['id_vaccination_tracker' => $request->id_vaccination_tracker],
             [
-                'id_user' => $request->user,
+                'id_anak' => $request->anak,
                 'jadwal_imunisasi' => $request->jadwal_imunisasi,
                 'tipe_imunisasi' => $request->tipe_imunisasi,
             ]
@@ -61,7 +61,7 @@ class VaccinationTrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = VaccinationTracker::join($this->profile, 'profile.id_user', '=', 'vaccination_tracker.id_user')->find($id);
+        $data = VaccinationTracker::join($this->anak, 'anak.id_anak', '=', 'vaccination_tracker.id_anak')->find($id);
         return response()->json($data);
     }
 

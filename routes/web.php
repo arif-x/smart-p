@@ -42,15 +42,27 @@ Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::group([
     'prefix' => 'api',
-    'middleware' => ['auth.basic', 'json']
+    // 'middleware' => ['auth.basic', 'json']
+    'middleware' => ['json']
 ], function(){
     Route::resource('anak', App\Http\Controllers\Api\User\AnakController::class, ['as' => 'api']);
+    Route::post('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'show'])->name('api.anak.show-data');
+    Route::delete('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'destroy'])->name('api.anak.delete-data');
+    
+
+    Route::post('/home', [App\Http\Controllers\Api\User\HomeController::class, 'index'])->name('api.user.home');
+    Route::post('/home/anak', [App\Http\Controllers\Api\User\HomeController::class, 'getAll'])->name('api.user.home.anak');
+    Route::post('/home/anak/{id_anak}', [App\Http\Controllers\Api\User\HomeController::class, 'show'])->name('api.user.home.anak.single');
+
+
     Route::resource('artikel', App\Http\Controllers\Api\User\ArtikelController::class, ['as' => 'api']);
 
+
     Route::group([
-        'middleware' => 'anak'
+        // 'middleware' => 'anak'
     ], function(){
         Route::resource('record-perkembangan', App\Http\Controllers\Api\User\RecordPerkembanganController::class, ['as' => 'api']);
+        Route::post('record-perkembangan/index', [App\Http\Controllers\Api\User\RecordPerkembanganController::class, 'index']);
         Route::resource('record-vaksinasi', App\Http\Controllers\Api\User\RecordVaksinasiController::class, ['as' => 'api']);
     });
 
@@ -78,7 +90,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
 ], function(){
-    Route::post('get-user-data', [GetUserDataController::class, 'getUser'])->name('admin.get-user-data');
+    Route::post('get-anak-data', [GetUserDataController::class, 'getUser'])->name('admin.get-anak-data');
     Route::resource('growth-tracker', GrowthTrackerController::class, ['as' => 'admin']);
     Route::resource('development-tracker', DevelopmentTrackerController::class, ['as' => 'admin']);
     Route::resource('vaccination-tracker', VaccinationTrackerController::class, ['as' => 'admin']);

@@ -15,7 +15,7 @@ class CreateVaccinationTracker extends Migration
     {
         Schema::create('vaccination_tracker', function (Blueprint $table) {
             $table->increments('id_vaccination_tracker');
-            $table->integer('id_user');
+            $table->integer('id_anak');
             $table->string('jadwal_imunisasi');
             $table->string('tipe_imunisasi');
         });

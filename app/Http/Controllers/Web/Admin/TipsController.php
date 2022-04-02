@@ -9,7 +9,7 @@ use App\Models\Tips;
 
 class TipsController extends Controller
 {
-    private $profile = 'profile';
+    private $danak = 'danak';
 
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class TipsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $data = Tips::join($this->profile, 'profile.id_user', '=', 'tips.id_user')->orderBy('id_tips')->get();
+        $data = Tips::join($this->danak, 'danak.id_anak', '=', 'tips.id_anak')->orderBy('id_tips')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -45,7 +45,7 @@ class TipsController extends Controller
         Tips::updateOrCreate(
             ['id_tips' => $request->id_tips],
             [
-                'id_user' => $request->user,
+                'id_anak' => $request->anak,
                 'menu_tips_kesehatan' => $request->menu_tips_kesehatan,
                 'perawatan_anak' => $request->perawatan_anak,
             ]
@@ -61,7 +61,7 @@ class TipsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data = Tips::join($this->profile, 'profile.id_user', '=', 'tips.id_user')->find($id);
+        $data = Tips::join($this->danak, 'danak.id_anak', '=', 'tips.id_anak')->find($id);
         return response()->json($data);
     }
 

@@ -19,12 +19,12 @@ class ArtikelController extends Controller
         $data = Artikel::get();
         if(empty($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Kosong'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
@@ -47,19 +47,20 @@ class ArtikelController extends Controller
                 'thumbnail' => $request->thumbnail,
                 'label' => $request->label,
                 'konten' => $request->konten,
+                'id_bahasa' => $request->id_bahasa,
             ]
         );
 
         if(!($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Gagal Dibuat/Diedit'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Dibuat/Diedit',
-                'data' => $data
+                'data' => [$data]
             ], 200);
         } 
     }
@@ -75,14 +76,14 @@ class ArtikelController extends Controller
         $data = Artikel::find($id);
         if(empty($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Didapat',
-                'data' => $data
+                'data' => [$data]
             ], 200);
         }
     }
@@ -99,14 +100,14 @@ class ArtikelController extends Controller
         $data = Artikel::find($id)->delete();
         if(!($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Gagal Dihapus'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Dihapus',
-                'data' => $data
+                'data' => [$data]
             ], 200);
         }
     }

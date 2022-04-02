@@ -19,6 +19,7 @@ class CreateArtikelTable extends Migration
             $table->string('thumbnail');
             $table->string('label');
             $table->string('konten');
+            $table->string('id_bahasa');
         });
     }
 

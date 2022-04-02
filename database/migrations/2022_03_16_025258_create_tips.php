@@ -15,7 +15,7 @@ class CreateTips extends Migration
     {
         Schema::create('tips', function (Blueprint $table) {
             $table->increments('id_tips');
-            $table->integer('id_user');
+            $table->integer('id_anak');
             $table->string('menu_tips_kesehatan');
             $table->string('perawatan_anak');
         });

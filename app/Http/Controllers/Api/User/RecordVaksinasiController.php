@@ -18,12 +18,12 @@ class RecordVaksinasiController extends Controller
         $data = RecordVaksinasi::get();
         if(empty($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Kosong'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Didapat',
                 'data' => $data
             ], 200);
@@ -49,12 +49,12 @@ class RecordVaksinasiController extends Controller
 
         if(!($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Gagal Dibuat/Diedit'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Dibuat/Diedit',
                 'data' => [$data]
             ], 200);
@@ -72,12 +72,12 @@ class RecordVaksinasiController extends Controller
         $data = RecordVaksinasi::find($id);
         if(empty($data)){
             return response()->json([
-                'error' => false,
+                'status' => false,
                 'message' => 'Data Gagal Didapat'
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Didapat',
                 'data' => [$data]
             ], 200);
@@ -95,11 +95,11 @@ class RecordVaksinasiController extends Controller
         $data = RecordVaksinasi::find($id)->delete();
         if(!($data)){
             return response()->json([
-                'error' => false
+                'status' => false
             ], 201);
         } else {
             return response()->json([
-                'success' => true,
+                'status' => true,
                 'message' => 'Data Dihapus',
                 'data' => [$data]
             ], 200);
