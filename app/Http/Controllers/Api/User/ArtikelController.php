@@ -14,9 +14,9 @@ class ArtikelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Artikel::get();
+        $data = Artikel::where('id_bahasa', $request->id_bahasa)->get();
         if(empty($data)){
             return response()->json([
                 'status' => false,
@@ -27,29 +27,6 @@ class ArtikelController extends Controller
                 'status' => true,
                 'message' => 'Data Didapat',
                 'data' => $data
-            ], 200);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = Artikel::find($id);
-        if(empty($data)){
-            return response()->json([
-                'status' => false,
-                'message' => 'Data Gagal Didapat'
-            ], 201);
-        } else {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Didapat',
-                'data' => [$data]
             ], 200);
         }
     }

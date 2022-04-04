@@ -49,15 +49,12 @@ Route::group([
     Route::post('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'show'])->name('api.anak.show-data');
     Route::delete('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'destroy'])->name('api.anak.delete-data');
     
-
     Route::post('/home', [App\Http\Controllers\Api\User\HomeController::class, 'index'])->name('api.user.home');
     Route::post('/home/anak', [App\Http\Controllers\Api\User\HomeController::class, 'getAll'])->name('api.user.home.anak');
     Route::post('/home/anak/single', [App\Http\Controllers\Api\User\HomeController::class, 'show'])->name('api.user.home.anak.single');
-
     Route::post('/home/grafik', [App\Http\Controllers\Api\User\RecordController::class, 'index']);
-
-    Route::resource('artikel', App\Http\Controllers\Api\User\ArtikelController::class, ['as' => 'api']);
-
+    Route::post('/home/vaksinasi', [App\Http\Controllers\Api\User\VaksinasiCheckerController::class, 'index']);    
+    Route::post('/home/artikel', [App\Http\Controllers\Api\User\ArtikelController::class, 'index']);    
 
     Route::group([
         // 'middleware' => 'anak'

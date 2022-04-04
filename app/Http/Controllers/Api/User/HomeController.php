@@ -16,6 +16,7 @@ use App\Models\Artikel;
 use App\Models\KlasifikasiBeratBadan;
 use App\Models\KlasifikasiTinggiBadan;
 use App\Models\KlasifikasiLingkarKepala;
+use App\Models\Slider;
 
 class HomeController extends Controller
 {
@@ -98,6 +99,8 @@ class HomeController extends Controller
                 $data_anak[0]['bulan'] = $bulan;
             }
 
+            $data_slider = Slider::get();
+
             if(!($data_record)){
                 return response()->json([
                     'status' => true,
@@ -127,15 +130,16 @@ class HomeController extends Controller
                         'data_anak' => $data_anak,
                         'data_record' => $data_record,
                         'data_vaksin_yang_belum' => $data_vaksin,
-                        'data_artikel' => $data_artikel
+                        'data_artikel' => $data_artikel,
+                        'data_slider' => $data_slider
                     ], 200);
                 }
             }
         }
     }
 
-    public function show($id_anak, Request $request){
-        $data_anak = Anak::where('id_user', $request->id_user)->where('id_anak', $id_anak)->get();
+    public function show(Request $request){
+        $data_anak = Anak::where('id_user', $request->id_user)->where('id_anak', $request->id_anak)->get();
 
         if(count($data_anak) == 0){
             return response()->json([
@@ -209,6 +213,8 @@ class HomeController extends Controller
                 $data_anak[0]['bulan'] = $bulan;
             }
 
+            $data_slider = Slider::get();
+
             if(!($data_record)){
                 return response()->json([
                     'status' => true,
@@ -238,7 +244,8 @@ class HomeController extends Controller
                         'data_anak' => $data_anak,
                         'data_record' => $data_record,
                         'data_vaksin_yang_belum' => $data_vaksin,
-                        'data_artikel' => $data_artikel
+                        'data_artikel' => $data_artikel,
+                        'data_slider' => $data_slider
                     ], 200);
                 }
             }
@@ -248,6 +255,41 @@ class HomeController extends Controller
     public function getAll(Request $request){
         $data_anak = Anak::where('id_user', $request->id_user)->get();
 
+        $date_now = Carbon::now()->format('Y-m-d');
+        $date_now = Carbon::parse($date_now);
+
+        $bulan_anak = array();
+        $tahun_anak = array();
+
+        foreach ($data_anak as $key => $value) {
+            $date_lahir = Carbon::createFromFormat('d/m/Y', $value['tanggal_lahir'])->format('Y-m-d');
+            $date_lahir = Carbon::parse($date_lahir);
+            $daftar_bulan = $date_now->diffInMonths($date_lahir);
+
+            $tahun = $daftar_bulan/12;
+            $tahun = (int)$tahun;
+            $data_anak[0]['tahun'] = $tahun;
+
+            $bulan = $daftar_bulan-(12*$tahun);
+            $bulan = (int)$bulan;
+            $data_anak[0]['bulan'] = $bulan;
+
+            if($bulan == 12){
+                $data_anak[0]['bulan'] = 0;
+            } else {
+                $data_anak[0]['bulan'] = $bulan;
+            }
+
+            array_push($bulan_anak, $bulan);
+            array_push($tahun_anak, $tahun);
+        }
+
+        for ($i=0; $i < count($bulan_anak); $i++) { 
+            $data_anak[$i]['tahun'] = $tahun_anak[$i];
+            $data_anak[$i]['bulan'] = $bulan_anak[$i];
+        }
+
+        
         if(!($data_anak)){
             return response()->json([
                 'status' => false,
