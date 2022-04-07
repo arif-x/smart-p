@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DevelopmentTracker extends Model
+class JenisParenting extends Model
 {
     use HasFactory;
     public $timestamps = FALSE;
-    protected $table = 'development_tracker';
+    protected $table = 'jenis_parenting';
     protected $guarded = [];
-    protected $primaryKey = 'id_development_tracker';
+    protected $primaryKey = 'id_jenis_parenting';
 }

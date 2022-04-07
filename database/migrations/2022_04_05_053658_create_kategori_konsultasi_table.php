@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParenting extends Migration
+class CreateKategoriKonsultasiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateParenting extends Migration
      */
     public function up()
     {
-        Schema::create('parenting', function (Blueprint $table) {
-            $table->increments('id_parenting');
-            $table->integer('id_user');
-            $table->string('modul_pengasuhan_anak');
-            $table->string('video_tutorial_teknik_stimulasi');
+        Schema::create('kategori_konsultasi', function (Blueprint $table) {
+            $table->increments('id_kategori_konsultasi');
+            $table->string('kategori_konsultasi');
+            $table->string('kategori_konsultasi_en');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateParenting extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parenting');
+        Schema::dropIfExists('kategori_konsultasi');
     }
 }

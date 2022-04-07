@@ -56,6 +56,19 @@ Route::group([
     Route::post('/home/vaksinasi', [App\Http\Controllers\Api\User\VaksinasiCheckerController::class, 'index']);    
     Route::post('/home/artikel', [App\Http\Controllers\Api\User\ArtikelController::class, 'index']);    
 
+    Route::post('/home/nutrition', [App\Http\Controllers\Api\User\NutritionTrackerController::class, 'index']);    
+    Route::post('/home/nutrition/kategori', [App\Http\Controllers\Api\User\NutritionTrackerController::class, 'getByKategori']);
+
+    Route::post('/home/konsultasi', [App\Http\Controllers\Api\User\ConsultationController::class, 'index']);
+    Route::post('/home/konsultasi/kategori', [App\Http\Controllers\Api\User\ConsultationController::class, 'getByKategori']);
+    Route::post('/home/konsultasi/store', [App\Http\Controllers\Api\User\ConsultationController::class, 'store']);
+
+    Route::post('/home/parenting/artikel', [App\Http\Controllers\Api\User\ParentingController::class, 'artikel']);
+    Route::post('/home/parenting/video', [App\Http\Controllers\Api\User\ParentingController::class, 'video']);
+    Route::post('/home/parenting/custom', [App\Http\Controllers\Api\User\ParentingController::class, 'custom']);
+
+    Route::post('/home/development', [App\Http\Controllers\Api\User\DevelopmentController::class, 'index']);
+
     Route::group([
         // 'middleware' => 'anak'
     ], function(){

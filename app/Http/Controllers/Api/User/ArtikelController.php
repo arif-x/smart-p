@@ -14,9 +14,9 @@ class ArtikelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $data = Artikel::where('id_bahasa', $request->id_bahasa)->get();
+        $data = Artikel::get();
         if(empty($data)){
             return response()->json([
                 'status' => false,

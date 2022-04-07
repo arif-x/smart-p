@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVaccinationTracker extends Migration
+class CreateJenisParentingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateVaccinationTracker extends Migration
      */
     public function up()
     {
-        Schema::create('vaccination_tracker', function (Blueprint $table) {
-            $table->increments('id_vaccination_tracker');
-            $table->integer('id_anak');
-            $table->string('jadwal_imunisasi');
-            $table->string('tipe_imunisasi');
+        Schema::create('jenis_parenting', function (Blueprint $table) {
+            $table->increments('id_jenis_parenting');
+            $table->string('jenis_parenting');
+            $table->string('jenis_parenting_en');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateVaccinationTracker extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vaccination_tracker');
+        Schema::dropIfExists('jenis_parenting');
     }
 }

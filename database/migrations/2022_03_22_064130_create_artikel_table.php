@@ -16,9 +16,12 @@ class CreateArtikelTable extends Migration
         Schema::create('artikel', function (Blueprint $table) {
             $table->increments('id_artikel');
             $table->string('judul_artikel');
+            $table->string('judul_artikel_en');
             $table->string('thumbnail');
             $table->string('label');
+            $table->string('label_en');
             $table->string('konten');
+            $table->string('konten_en');
             $table->string('id_bahasa');
         });
     }

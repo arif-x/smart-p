@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTips extends Migration
+class CreateKategoriNutritionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateTips extends Migration
      */
     public function up()
     {
-        Schema::create('tips', function (Blueprint $table) {
-            $table->increments('id_tips');
-            $table->integer('id_anak');
-            $table->string('menu_tips_kesehatan');
-            $table->string('perawatan_anak');
+        Schema::create('kategori_nutrition', function (Blueprint $table) {
+            $table->increments('id_kategori_nutrition');
+            $table->string('kategori_nutrition');
+            $table->String('kategori_nutrition_en');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateTips extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tips');
+        Schema::dropIfExists('kategori_nutrition');
     }
 }

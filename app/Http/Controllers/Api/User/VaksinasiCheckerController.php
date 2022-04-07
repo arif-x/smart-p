@@ -12,7 +12,7 @@ class VaksinasiCheckerController extends Controller
 {
     public function index(Request $request){
         $data_anak = Anak::where('id_user', $request->id_user)->get();
-        $data_vaksin = Vaksin::where('id_bahasa', $request->id_bahasa)->get();
+        $data_vaksin = Vaksin::get();
         
         for ($i=0; $i < count($data_vaksin); $i++) { 
             $data_vaksinasi = RecordVaksinasi::where('id_vaksin', $data_vaksin[$i]['id_vaksin'])->where('id_anak', $request->id_anak)->get();

@@ -69,18 +69,18 @@ class HomeController extends Controller
 
             $daftar_bulan = $date_record->diffInMonths($date_lahir);
 
-            $klasifikasi_tinggi_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_tinggi_badan WHERE ".$data_record[0]['tinggi_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_tinggi_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_tinggi_badan WHERE ".$data_record[0]['tinggi_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->klasifikasi_tinggi_badan;
             $data_record[0]['saran_klasifikasi_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->saran_klasifikasi_tinggi_badan;
             $data_record[0]['hex_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->hex_tinggi_badan;
 
-            $klasifikasi_berat_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_berat_badan WHERE ".$data_record[0]['berat_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_berat_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_berat_badan WHERE ".$data_record[0]['berat_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_berat_badan'] = $klasifikasi_berat_badan[0]->klasifikasi_berat_badan;
             $data_record[0]['saran_klasifikasi_berat_badan'] = $klasifikasi_berat_badan[0]->saran_klasifikasi_berat_badan;
             $data_record[0]['hex_berat_badan'] = $klasifikasi_berat_badan[0]->hex_berat_badan;
 
 
-            $klasifikasi_lingkar_kepala = DB::select(DB::raw("SELECT * FROM klasifikasi_lingkar_kepala WHERE ".$data_record[0]['lingkar_kepala_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_lingkar_kepala = DB::select(DB::raw("SELECT * FROM klasifikasi_lingkar_kepala WHERE ".$data_record[0]['lingkar_kepala_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->klasifikasi_lingkar_kepala;
             $data_record[0]['saran_klasifikasi_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->saran_klasifikasi_lingkar_kepala;
             $data_record[0]['hex_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->hex_lingkar_kepala;
@@ -183,18 +183,18 @@ class HomeController extends Controller
 
             $daftar_bulan = $date_record->diffInMonths($date_lahir);
 
-            $klasifikasi_tinggi_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_tinggi_badan WHERE ".$data_record[0]['tinggi_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_tinggi_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_tinggi_badan WHERE ".$data_record[0]['tinggi_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->klasifikasi_tinggi_badan;
             $data_record[0]['saran_klasifikasi_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->saran_klasifikasi_tinggi_badan;
             $data_record[0]['hex_tinggi_badan'] = $klasifikasi_tinggi_badan[0]->hex_tinggi_badan;
 
-            $klasifikasi_berat_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_berat_badan WHERE ".$data_record[0]['berat_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_berat_badan = DB::select(DB::raw("SELECT * FROM klasifikasi_berat_badan WHERE ".$data_record[0]['berat_badan_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_berat_badan'] = $klasifikasi_berat_badan[0]->klasifikasi_berat_badan;
             $data_record[0]['saran_klasifikasi_berat_badan'] = $klasifikasi_berat_badan[0]->saran_klasifikasi_berat_badan;
             $data_record[0]['hex_berat_badan'] = $klasifikasi_berat_badan[0]->hex_berat_badan;
 
 
-            $klasifikasi_lingkar_kepala = DB::select(DB::raw("SELECT * FROM klasifikasi_lingkar_kepala WHERE ".$data_record[0]['lingkar_kepala_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."' AND id_bahasa = '".$request->id_bahasa."'"));
+            $klasifikasi_lingkar_kepala = DB::select(DB::raw("SELECT * FROM klasifikasi_lingkar_kepala WHERE ".$data_record[0]['lingkar_kepala_perkembangan']." BETWEEN min AND max AND jenis_kelamin = '".$data_anak[0]['jenis_kelamin']."'"));
             $data_record[0]['klasifikasi_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->klasifikasi_lingkar_kepala;
             $data_record[0]['saran_klasifikasi_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->saran_klasifikasi_lingkar_kepala;
             $data_record[0]['hex_lingkar_kepala'] = $klasifikasi_lingkar_kepala[0]->hex_lingkar_kepala;

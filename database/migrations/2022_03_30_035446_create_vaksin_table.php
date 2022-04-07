@@ -16,9 +16,10 @@ class CreateVaksinTable extends Migration
         Schema::create('vaksin', function (Blueprint $table) {
             $table->increments('id_vaksin');
             $table->string('nama_vaksin');
+            $table->string('nama_vaksin_en');
             $table->string('jadwal_vaksin');
             $table->string('keterangan_vaksin');
-            $table->string('id_bahasa');
+            $table->string('keterangan_vaksin_en');
         });
     }
 

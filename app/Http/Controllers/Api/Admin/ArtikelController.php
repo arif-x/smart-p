@@ -47,7 +47,6 @@ class ArtikelController extends Controller
                 'thumbnail' => $request->thumbnail,
                 'label' => $request->label,
                 'konten' => $request->konten,
-                'id_bahasa' => $request->id_bahasa,
             ]
         );
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevelopmentTracker extends Migration
+class CreateKategoriParentingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateDevelopmentTracker extends Migration
      */
     public function up()
     {
-        Schema::create('development_tracker', function (Blueprint $table) {
-            $table->increments('id_development_tracker');
-            $table->integer('id_anak');
-            $table->string('delay');
-            $table->string('stimulasi');
+        Schema::create('kategori_parenting', function (Blueprint $table) {
+            $table->increments('id_kategori_parenting');
+            $table->string('kategori_parenting');
+            $table->string('kategori_parenting_en');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateDevelopmentTracker extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('development_tracker');
+        Schema::dropIfExists('kategori_parenting');
     }
 }
