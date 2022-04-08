@@ -11,7 +11,7 @@ class ConsultationController extends Controller
 {
     public function index(){
         $data_kategori_konsultasi = KategoriKonsultasi::get();
-        $data_konsultasi = Konsultasi::orderBy('jumlah_like', 'DESC')->get();
+        $data_konsultasi = Konsultasi::join('users', 'users.id_user', '=', 'konsultasi.id_user')->orderBy('jumlah_like', 'DESC')->select('users.email as nama_user', 'konsultasi.*')->get();
 
         return response()->json([
             'status' => true,
@@ -22,7 +22,7 @@ class ConsultationController extends Controller
     }
 
     public function getByKategori(Request $request){
-        $data_konsultasi = Konsultasi::where('id_kategori_konsultasi', $request->id_kategori_konsultasi)->orderBy('tanggal_konsultasi', 'DESC')->get();
+        $data_konsultasi = Konsultasi::join('users', 'users.id_user', '=', 'konsultasi.id_user')->orderBy('jumlah_like', 'DESC')->where('id_kategori_konsultasi', $request->id_kategori_konsultasi)->orderBy('tanggal_konsultasi', 'DESC')->select('users.email as nama_user', 'konsultasi.*')->get();
         return response()->json([
             'status' => true,
             'message' => 'Data Didapat',
@@ -34,10 +34,8 @@ class ConsultationController extends Controller
         $data = Konsultasi::create([
             'id_kategori_konsultasi' => $request->id_kategori_konsultasi,
             'id_user' => $request->id_user,
-            'nama_user' => $request->nama_user,
             'tanggal_konsultasi' => $request->tanggal_konsultasi,
-            'jawaban_konsultasi' => $request->jawaban_konsultasi,
-            'jawaban_konsultasi_en' => $request->jawaban_konsultasi_en,
+            'pertanyaan' => $request->pertanyaan,
             'jumlah_like' => $request->jumlah_like
         ]);
 

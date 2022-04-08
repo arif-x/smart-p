@@ -43,7 +43,7 @@ Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::group([
     'prefix' => 'api',
     // 'middleware' => ['auth.basic', 'json']
-    'middleware' => ['json']
+    'middleware' => ['json', 'strip']
 ], function(){
     Route::resource('anak', App\Http\Controllers\Api\User\AnakController::class, ['as' => 'api']);
     Route::post('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'show'])->name('api.anak.show-data');
@@ -68,6 +68,16 @@ Route::group([
     Route::post('/home/parenting/custom', [App\Http\Controllers\Api\User\ParentingController::class, 'custom']);
 
     Route::post('/home/development', [App\Http\Controllers\Api\User\DevelopmentController::class, 'index']);
+    Route::post('/home/development/single', [App\Http\Controllers\Api\User\DevelopmentController::class, 'single']);
+    Route::post('/home/development/store', [App\Http\Controllers\Api\User\DevelopmentController::class, 'store']);
+
+    Route::post('/home/parenting-assessment/kategori', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'kategori']);
+    Route::post('/home/parenting-assessment/kategori/single', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'kategoriSingle']);
+    Route::post('/home/parenting-assessment/soal', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'soal']);
+    Route::post('/home/parenting-assessment/soal/kategori', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'getSoalByKategori']);
+    Route::post('/home/parenting-assessment/soal/jawaban/submit-single', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submitSingle']);
+    Route::post('/home/parenting-assessment/soal/jawaban/submit-all', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submitAll']);
+    
 
     Route::group([
         // 'middleware' => 'anak'

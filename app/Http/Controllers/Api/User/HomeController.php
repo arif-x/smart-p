@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use App\Models\Anak;
-use App\Models\Bahasa;
 use App\Models\RecordPerkembangan;
 use App\Models\RecordVaksinasi;
 use App\Models\VaccinationTracker;
@@ -59,7 +58,6 @@ class HomeController extends Controller
                 }
             }
 
-            $config_bahasa = Bahasa::where('id_bahasa', $request->id_bahasa)->value('id_bahasa');
             $data_artikel = Artikel::orderBy('id_artikel', 'DESC')->limit(5)->get();
 
             $date_record = Carbon::createFromFormat('d/m/Y', $data_record[0]['tanggal'])->format('Y-m-d');
@@ -178,7 +176,6 @@ class HomeController extends Controller
                 }
             }
 
-            $config_bahasa = Bahasa::where('id_bahasa', $request->id_bahasa)->value('id_bahasa');
             $data_artikel = Artikel::orderBy('id_artikel', 'DESC')->limit(5)->get();
 
             $daftar_bulan = $date_record->diffInMonths($date_lahir);

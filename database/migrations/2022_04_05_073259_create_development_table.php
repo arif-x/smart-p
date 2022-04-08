@@ -34,7 +34,6 @@ class CreateDevelopmentTable extends Migration
             $table->string('stimulus4_en');
             $table->string('thumnile');
             $table->string('url_video');
-            $table->string('jawaban_user');
         });
     }
 

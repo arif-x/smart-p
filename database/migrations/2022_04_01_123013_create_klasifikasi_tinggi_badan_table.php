@@ -24,7 +24,7 @@ class CreateKlasifikasiTinggiBadanTable extends Migration
             $table->string('klasifikasi_tinggi_badan_en');
             $table->string('saran_klasifikasi_tinggi_badan');
             $table->string('saran_klasifikasi_tinggi_badan_en');
-            $table->string('hex_berat_badan');
+            $table->string('hex_tinggi_badan');
         });
 
         $data = array(
@@ -37,7 +37,7 @@ class CreateKlasifikasiTinggiBadanTable extends Migration
                 'saran_klasifikasi_tinggi_badan' => 'Konsultasikan kebutuhan gizi anak Anda pada ahli pediatrik',
                 'klasifikasi_tinggi_badan_en' => 'Malnutrisi',
                 'saran_klasifikasi_tinggi_badan_en' => 'Konsultasikan kebutuhan gizi anak Anda pada ahli pediatrik',
-                'hex_berat_badan' => 'merah',
+                'hex_tinggi_badan' => 'merah',
                 'id_bahasa' => '1'
             ],
         );
@@ -52,7 +52,7 @@ class CreateKlasifikasiTinggiBadanTable extends Migration
             $klasifikasi->saran_klasifikasi_tinggi_badan = $newData['saran_klasifikasi_tinggi_badan'];
             $klasifikasi->klasifikasi_tinggi_badan_en = $newData['klasifikasi_tinggi_badan_en'];
             $klasifikasi->saran_klasifikasi_tinggi_badan_en = $newData['saran_klasifikasi_tinggi_badan_en'];
-            $klasifikasi->hex_berat_badan = $newData['hex_berat_badan'];
+            $klasifikasi->hex_tinggi_badan = $newData['hex_tinggi_badan'];
             $klasifikasi->save();
         }
     }

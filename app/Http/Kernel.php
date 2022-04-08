@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'json' => \App\Http\Middleware\ForceJson::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'anak' => \App\Http\Middleware\AnakMiddleware::class,
+        'strip' => \App\Http\Middleware\ChangeJsonMiddleware::class,
     ];
 }
