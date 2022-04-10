@@ -13,16 +13,42 @@ use Carbon\Carbon;
 
 class ParentingAssessmentController extends Controller
 {
-    public function kategori(){
+    public function kategori(Request $request)
+    {
+
+        // nilai di ambil dulu nilai terakhir dari by kategori by  user
+        // 2 
+
         $data = KategoriParentingAssessment::get();
+        $check_nilai = HistoryParentingAssessment::where('id_user', $request->id_user)->first();
+        $nilai = HistoryParentingAssessment::where('id_user', $request->id_user)->groupBy('id_kategori_parenting_assessment')->get();
+
+        $total_skor = 0;
+        $total_nilai_ok = 0;
+
+        if (empty($check_nilai)) {
+            // gak ngapain
+        } else {
+            for ($i = 0; $i < count($data); $i++) {
+                $id_kategori = $data[$i]['id_kategori_parenting_assessment'];
+                // query where untuk mengambil nilai terakhir
+                $where_bt_id_kategori = HistoryParentingAssessment::where('id_kategori_parenting_assessment', $id_kategori)->orderBy('id_history_parenting_assessment', 'DESC')->limit(1)->value('skor');
+                // echo $where_bt_id_kategori;
+                $total_nilai_ok += $where_bt_id_kategori;
+            }
+            $skor = $total_nilai_ok / count($data);
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Data Didapat',
+            'skor' => $skor,
             'data' => $data
         ], 200);
     }
 
-    public function kategoriSingle(Request $request){
+    public function kategoriSingle(Request $request)
+    {
         $check = KategoriParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->first();
 
         $jumlah_soal = SoalParentingAssessment::select(DB::raw('COUNT(id_soal_parenting_assessment) as jumlah'))->where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->value('jumlah');
@@ -33,7 +59,7 @@ class ParentingAssessmentController extends Controller
 
         $skor = HistoryParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->get();
 
-        if(count($skor) == 0){
+        if (count($skor) == 0) {
             return response()->json([
                 'status' => true,
                 'message' => 'Data Didapat',
@@ -44,26 +70,15 @@ class ParentingAssessmentController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Didapat',
-                'nilai' => $skor[count($skor)-1]['skor'],
+                'nilai' => $skor[count($skor) - 1]['skor'],
                 'soal' => $check,
             ], 200);
         }
     }
 
-    public function getSoalByKategori(Request $request){
-        $kategori = KategoriParentingAssessment::get();
-        $soal = SoalParentingAssessment::leftJoin('jawaban_parenting_assessment', 'jawaban_parenting_assessment.id_soal_parenting_assessment', '=', 'soal_parenting_assessment.id_soal_parenting_assessment')->where('id_user', $request->id_user)->orWhereNull('id_user')->where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->select('soal_parenting_assessment.*', 'jawaban_parenting_assessment.id_user', 'jawaban_parenting_assessment.jawaban')->get();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Didapat',
-            'kategori' => $kategori,
-            'soal' => $soal,
-        ], 200);
-    }
-
-    public function soal(Request $request){
-        $soal = SoalParentingAssessment::leftJoin('jawaban_parenting_assessment', 'jawaban_parenting_assessment.id_soal_parenting_assessment', '=', 'soal_parenting_assessment.id_soal_parenting_assessment')->where('id_user', $request->id_user)->orWhereNull('id_user')->select('soal_parenting_assessment.*', 'jawaban_parenting_assessment.id_user', 'jawaban_parenting_assessment.jawaban')->get();
+    public function getSoalByKategori(Request $request)
+    {
+        $soal = SoalParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->get();
 
         return response()->json([
             'status' => true,
@@ -72,7 +87,55 @@ class ParentingAssessmentController extends Controller
         ], 200);
     }
 
-    public function submitSingle(Request $request){
+    public function soal(Request $request)
+    {
+        $soal = SoalParentingAssessment::get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Didapat',
+            'soal' => $soal,
+        ], 200);
+    }
+
+    public function submit(Request $request)
+    {
+        $soal = SoalParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->get();
+
+        // if()
+
+        $req = $request->except('id_user', 'id_kategori_parenting_assessment');
+
+        $total_benar = 0;
+
+        foreach ($req as $key => $value) {
+            for ($i = 0; $i < count($soal); $i++) {
+                if ($value == $soal[$i]->kunci_jawaban) {
+                    $total_benar++;
+                }
+            }
+        }
+
+        $jumlah_soal = count($soal);
+
+        $skor = $total_benar / $jumlah_soal * 100;
+
+        $insert = HistoryParentingAssessment::create([
+            'id_user' => $request->id_user,
+            'id_kategori_parenting_assessment' => $request->id_kategori_parenting_assessment,
+            'skor' => $skor,
+            'tanggal_pengerjaan' => Carbon::now()->format('d/m/Y'),
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Ditambah',
+            'data' => $insert,
+        ], 200);
+    }
+
+    public function submitSingle(Request $request)
+    {
         $data = JawabanParentingAssessment::updateOrCreate(
             ['id_jawaban_parenting_assessment' => $request->id_jawaban_parenting_assessment],
             [
@@ -82,7 +145,7 @@ class ParentingAssessmentController extends Controller
             ]
         );
 
-        if(!$data){
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditambah/Edit',
@@ -96,7 +159,8 @@ class ParentingAssessmentController extends Controller
         }
     }
 
-    public function submitAll(Request $request){
+    public function submitAll(Request $request)
+    {
         $kategori = KategoriParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->value('id_kategori_parenting_assessment');
 
         $jumlah_soal = SoalParentingAssessment::select(DB::raw('COUNT(id_soal_parenting_assessment) as jumlah'))->where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->value('jumlah');
@@ -105,8 +169,8 @@ class ParentingAssessmentController extends Controller
 
         $benar = 0;
 
-        for ($i=0; $i < count($soal); $i++) { 
-            if($soal[$i]->jawaban == $soal[$i]->kunci_jawaban){
+        for ($i = 0; $i < count($soal); $i++) {
+            if ($soal[$i]->jawaban == $soal[$i]->kunci_jawaban) {
                 $benar++;
             }
         }
@@ -120,7 +184,7 @@ class ParentingAssessmentController extends Controller
             'tanggal_pengerjaan' => Carbon::now()->format('d/m/Y'),
         ]);
 
-        if(!$data){
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditambah/Edit',
@@ -131,6 +195,6 @@ class ParentingAssessmentController extends Controller
                 'message' => 'Data Ditambah/Edit',
                 'data' => $data,
             ], 200);
-        }   
+        }
     }
 }

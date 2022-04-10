@@ -77,6 +77,9 @@ Route::group([
     Route::post('/home/parenting-assessment/soal/kategori', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'getSoalByKategori']);
     Route::post('/home/parenting-assessment/soal/jawaban/submit-single', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submitSingle']);
     Route::post('/home/parenting-assessment/soal/jawaban/submit-all', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submitAll']);
+    Route::post('/home/parenting-assessment/soal/jawaban/submit', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submit']);
+    Route::post('/home/parenting-assessment/soal/jawaban/jawab', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'jawab']);
+    Route::post('/home/parenting-assessment/histori', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'history']);
     
 
     Route::group([
