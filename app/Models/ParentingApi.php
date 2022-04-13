@@ -11,5 +11,5 @@ class ParentingApi extends Model
     public $timestamps = FALSE;
     protected $table = 'parentings';
     protected $guarded = [];
-    protected $primaryKey = 'id_parentings';
+    protected $primaryKey = 'id_parenting';
 }

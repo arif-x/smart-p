@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use Auth;
-use App\Models\Profil;
 use App\Models\User;
 
 class LoginController extends Controller
@@ -63,7 +62,6 @@ class LoginController extends Controller
             } else { 
 
                 $createUser = new User;
-                $createUser->name =  $user->getName();
 
                 if($user->getEmail() != null){
                     $createUser->email = $user->getEmail();
@@ -78,10 +76,6 @@ class LoginController extends Controller
                 $createUser->save();
 
                 $id = $createUser->id; // Get current user id
-
-                Profil::create([
-                    'id_user' => $id,
-                ]);
 
                 Auth::login($createUser);
 

@@ -4,18 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Auth\AuthController;
 
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\Web\Admin\GetUserDataController;
-use App\Http\Controllers\Web\Admin\GrowthTrackerController;
-use App\Http\Controllers\Web\Admin\DevelopmentTrackerController;
-use App\Http\Controllers\Web\Admin\NutritionTrackerController;
-use App\Http\Controllers\Web\Admin\TipsController;
-use App\Http\Controllers\Web\Admin\ConsultationController;
-use App\Http\Controllers\Web\Admin\ParentingController;
-use App\Http\Controllers\Web\Admin\ParentingAssessmentController;
-use App\Http\Controllers\Web\Admin\VaccinationTrackerController;
-use App\Http\Controllers\Web\Admin\VaksinController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +34,7 @@ Route::group([
     'middleware' => ['json', 'strip']
 ], function(){
     Route::resource('anak', App\Http\Controllers\Api\User\AnakController::class, ['as' => 'api']);
+    Route::post('anak/store', [App\Http\Controllers\Api\User\AnakController::class, 'store']);
     Route::post('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'show'])->name('api.anak.show-data');
     Route::delete('/anak/{id_anak}/{id_user}', [App\Http\Controllers\Api\User\AnakController::class, 'destroy'])->name('api.anak.delete-data');
     
@@ -114,15 +103,35 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
 ], function(){
-    Route::post('get-anak-data', [GetUserDataController::class, 'getUser'])->name('admin.get-anak-data');
-    Route::resource('growth-tracker', GrowthTrackerController::class, ['as' => 'admin']);
-    Route::resource('development-tracker', DevelopmentTrackerController::class, ['as' => 'admin']);
-    Route::resource('vaccination-tracker', VaccinationTrackerController::class, ['as' => 'admin']);
-    Route::resource('nutrition-tracker', NutritionTrackerController::class, ['as' => 'admin']);
-    Route::resource('tips', TipsController::class, ['as' => 'admin']);
-    Route::resource('consultation', ConsultationController::class, ['as' => 'admin']);
-    Route::resource('parenting', ParentingController::class, ['as' => 'admin']);
-    Route::resource('parenting-assessment', ParentingAssessmentController::class, ['as' => 'admin']);
-    Route::resource('vaksin', VaksinController::class, ['as' => 'admin']);
+    Route::post('data/jenis-parenting', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'jenisParenting'])->name('data.jenis.parenting');
+    Route::post('data/kategori-nutrition', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriNutrition'])->name('data.kategori.nutrition');
+    Route::post('data/kategori-parenting', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriParenting'])->name('data.kategori.parenting');
+    Route::post('data/kategori-parenting-assessment', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriParentingAssessment'])->name('data.kategori.parenting-assessment');
+});
+
+Route::group([
+    'prefix' => 'admin',
+], function(){
+    Route::resource('jenis-parenting', App\Http\Controllers\Web\Admin\Jenis\ParentingController::class, ['as' => 'admin']);
+    Route::resource('kategori-parenting', App\Http\Controllers\Web\Admin\Kategori\ParentingController::class, ['as' => 'admin']);
+    Route::resource('kategori-development', App\Http\Controllers\Web\Admin\Kategori\DevelopmentController::class, ['as' => 'admin']);
+    Route::resource('kategori-nutrition', App\Http\Controllers\Web\Admin\Kategori\NutritionController::class, ['as' => 'admin']);
+    Route::resource('kategori-konsultasi', App\Http\Controllers\Web\Admin\Kategori\KonsultasiController::class, ['as' => 'admin']);
+    Route::resource('kategori-parenting-assessment', App\Http\Controllers\Web\Admin\Kategori\ParentingAssessmentController::class, ['as' => 'admin']);
+
+    Route::resource('klasifikasi-tinggi-badan', App\Http\Controllers\Web\Admin\Klasifikasi\TinggiBadanController::class, ['as' => 'admin']);
+    Route::resource('klasifikasi-berat-badan', App\Http\Controllers\Web\Admin\Klasifikasi\BeratBadanController::class, ['as' => 'admin']);
+    Route::resource('klasifikasi-lingkar-kepala', App\Http\Controllers\Web\Admin\Klasifikasi\LingkarKepalaController::class, ['as' => 'admin']);
+
+    Route::resource('artikel', App\Http\Controllers\Web\Admin\Post\ArtikelController::class, ['as' => 'admin']);
+    Route::resource('nutrition', App\Http\Controllers\Web\Admin\Post\NutritionController::class, ['as' => 'admin']);
+    Route::resource('parenting', App\Http\Controllers\Web\Admin\Post\ParentingController::class, ['as' => 'admin']);
+    Route::resource('vaksin', App\Http\Controllers\Web\Admin\Post\VaksinController::class, ['as' => 'admin']);
+
+    Route::resource('parenting-assessment', App\Http\Controllers\Web\Admin\Quiz\ParentingAssessmentController::class, ['as' => 'admin']);
+});
+
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+ \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 

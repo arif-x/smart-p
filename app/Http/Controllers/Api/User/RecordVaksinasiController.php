@@ -38,71 +38,43 @@ class RecordVaksinasiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = RecordVaksinasi::updateOrCreate(
-            ['id_record_vaksinasi' => $request->id_record_vaksinasi],
-            [
-                'id_anak' => $request->id_anak,
-                'tanggal' => $request->tanggal,
-                'id_vaksin' => $request->id_vaksin,
-            ]
-        );
+        $check = RecordVaksinasi::where('id_vaksin', $request->id_vaksin)->where('id_anak', $request->id_anak)->first();
 
-        if(!($data)){
-            return response()->json([
-                'status' => false,
-                'message' => 'Data Gagal Dibuat/Diedit'
-            ], 201);
-        } else {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Dibuat/Diedit',
-                'data' => [$data]
-            ], 200);
-        } 
-    }
+        if(empty($check)){
+            $data = RecordVaksinasi::create(
+                [
+                    'id_anak' => $request->id_anak,
+                    'tanggal' => $request->tanggal,
+                    'id_vaksin' => $request->id_vaksin,
+                ]
+            );
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = RecordVaksinasi::find($id);
-        if(empty($data)){
-            return response()->json([
-                'status' => false,
-                'message' => 'Data Gagal Didapat'
-            ], 201);
+            if(!($data)){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Dibuat/Diedit'
+                ], 201);
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Dibuat/Diedit',
+                    'data' => [$data]
+                ], 200);
+            } 
         } else {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Didapat',
-                'data' => [$data]
-            ], 200);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $data = RecordVaksinasi::find($id)->delete();
-        if(!($data)){
-            return response()->json([
-                'status' => false
-            ], 201);
-        } else {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Dihapus',
-                'data' => [$data]
-            ], 200);
+            $data = RecordVaksinasi::where('id_vaksin', $request->id_vaksin)->where('id_anak', $request->id_anak)->delete();
+            if(!($data)){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Dihapus'
+                ], 201);
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data Dihapus',
+                    'data' => [$data]
+                ], 200);
+            } 
         }
     }
 }

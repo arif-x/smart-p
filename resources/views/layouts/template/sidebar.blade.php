@@ -18,60 +18,92 @@
           <span class="link-title">Dashboard</span>
         </a>
       </li>
+
+      <li class="nav-item nav-category">Konfigurasi</li>
       <li class="nav-item">
-        <a href="{{ route('admin.growth-tracker.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="bar-chart"></i>
-          <span class="link-title">Growth Tracker</span>
+        <a href="{{ route('admin.jenis-parenting.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Jenis Parenting</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('admin.development-tracker.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="activity"></i>
-          <span class="link-title">Development Tracker</span>
+        <a href="{{ route('admin.kategori-parenting.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Kategori Parenting</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('admin.vaccination-tracker.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="heart"></i>
-          <span class="link-title">Vaccination</span>
+        <a href="{{ route('admin.kategori-development.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Kategori Development</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('admin.nutrition-tracker.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="align-justify"></i>
-          <span class="link-title">Nutrition Tracker</span>
+        <a href="{{ route('admin.kategori-nutrition.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Kategori Nutrisi</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('admin.tips.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="alert-circle"></i>
-          <span class="link-title">Tips</span>
+        <a href="{{ route('admin.kategori-parenting-assessment.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Kategori Parenting A.</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('admin.consultation.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="message-square"></i>
-          <span class="link-title">Consultation</span>
+        <a href="{{ route('admin.klasifikasi-tinggi-badan.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Klasifikasi Tinggi Badan</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin.klasifikasi-berat-badan.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Klasifikasi Berat Badan</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin.klasifikasi-lingkar-kepala.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Klasifikasi Lingkar Kepala</span>
+        </a>
+      </li>
+
+      <li class="nav-item nav-category">Post</li>
+      <li class="nav-item">
+        <a href="{{ route('admin.artikel.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Artikel</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin.nutrition.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Nutrition</span>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ route('admin.parenting.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="user"></i>
+          <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Parenting</span>
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{ route('admin.vaksin.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Vaksin</span>
+        </a>
+      </li>
+
+      <li class="nav-item nav-category">Quiz</li>
+      <li class="nav-item">
         <a href="{{ route('admin.parenting-assessment.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="users"></i>
+          <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Parenting Assessment</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="{{ route('admin.vaksin.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="heart"></i>
-          <span class="link-title">Vaccine</span>
-        </a>
-      </li>
+
+      <li class="nav-item nav-category">Logout</li>
       <li class="nav-item">
         <a href="#" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
           <i class="link-icon" data-feather="log-out"></i>
