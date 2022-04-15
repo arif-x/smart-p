@@ -8,6 +8,7 @@ use App\Models\KategoriParenting;
 use App\Models\KategoriNutrition;
 use App\Models\JenisParenting;
 use App\Models\KategoriParentingAssessment;
+use App\Models\KategoriDevelopment;
 
 class DataController extends Controller
 {
@@ -89,6 +90,27 @@ class DataController extends Controller
             $response[] = array(
                 "id"=>$datas->id_kategori_parenting_assessment,
                 "text"=>$datas->kategori_parenting_assessment
+            );
+        }
+
+        return response()->json($response);
+    }
+
+    public function kategoriDevelopment(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $data = KategoriDevelopment::orderby('kategori_development','asc')->select('id_kategori_development','kategori_development')->limit(5)->get();
+        } else {
+            $data = KategoriDevelopment::orderby('kategori_development','asc')->select('id_kategori_development','kategori_development')->where('kategori_development', 'like', '%' .$search . '%')->get();
+        }
+
+        $response = array();
+        foreach($data as $datas){
+            $response[] = array(
+                "id"=>$datas->id_kategori_development,
+                "text"=>$datas->kategori_development
             );
         }
 

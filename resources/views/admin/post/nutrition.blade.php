@@ -129,7 +129,7 @@
                   $('#theModalHeading').html("Tambah Data");
                   $('#img-holder').hide();
                   $('#text-holder').hide();
-                  $('#anak').val(null).trigger('change');
+                  $('#id_kategori_nutrition').val(null).trigger('change');
                   tinymce.get("konten_nutrition").setContent('');
                   tinymce.get("konten_nutrition_en").setContent('');
                   $('#theModal').modal('show');

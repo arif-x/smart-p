@@ -140,7 +140,8 @@
                   $('#theModalHeading').html("Tambah Data");
                   $('#img-holder').hide();
                   $('#text-holder').hide();
-                  $('#anak').val(null).trigger('change');
+                  $('#id_jenis_parenting').val(null).trigger('change');
+                  $('#id_kategori_parenting').val(null).trigger('change');
                   tinymce.get("konten_parenting").setContent('');
                   tinymce.get("konten_parenting_en").setContent('');
                   $('#theModal').modal('show');

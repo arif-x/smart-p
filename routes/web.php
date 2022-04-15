@@ -107,6 +107,7 @@ Route::group([
     Route::post('data/kategori-nutrition', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriNutrition'])->name('data.kategori.nutrition');
     Route::post('data/kategori-parenting', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriParenting'])->name('data.kategori.parenting');
     Route::post('data/kategori-parenting-assessment', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriParentingAssessment'])->name('data.kategori.parenting-assessment');
+    Route::post('data/kategori-development', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriDevelopment'])->name('data.kategori.development');
 });
 
 Route::group([
@@ -127,11 +128,12 @@ Route::group([
     Route::resource('nutrition', App\Http\Controllers\Web\Admin\Post\NutritionController::class, ['as' => 'admin']);
     Route::resource('parenting', App\Http\Controllers\Web\Admin\Post\ParentingController::class, ['as' => 'admin']);
     Route::resource('vaksin', App\Http\Controllers\Web\Admin\Post\VaksinController::class, ['as' => 'admin']);
+    Route::resource('development', App\Http\Controllers\Web\Admin\Post\DevelopmentController::class, ['as' => 'admin']);
 
     Route::resource('parenting-assessment', App\Http\Controllers\Web\Admin\Quiz\ParentingAssessmentController::class, ['as' => 'admin']);
 });
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
- \UniSharp\LaravelFilemanager\Lfm::routes();
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
