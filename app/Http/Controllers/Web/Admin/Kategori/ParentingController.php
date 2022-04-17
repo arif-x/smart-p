@@ -28,7 +28,19 @@ class ParentingController extends Controller
 
                 return $btn;
             })
-            ->rawColumns(['action'])
+            ->addColumn('jenis', function($row){
+
+                if($row->id_jenis_parenting == 1){
+                    $kunci = 'Artikel';
+                } elseif($row->id_jenis_parenting == 2) {
+                    $kunci = 'Video';
+                }
+
+                return $kunci;
+
+                return $btn;
+            })
+            ->rawColumns(['action', 'jenis'])
             ->make(true);
         }
         return view('admin.kategori.parenting');
@@ -45,6 +57,7 @@ class ParentingController extends Controller
         $data = KategoriParenting::updateOrCreate(
             ['id_kategori_parenting' => $request->id_kategori_parenting],
             [
+                'id_jenis_parenting' => $request->id_jenis_parenting,
                 'kategori_parenting' => $request->kategori_parenting,
                 'kategori_parenting_en' => $request->kategori_parenting_en,
             ]

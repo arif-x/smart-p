@@ -15,6 +15,7 @@
               <thead>
                 <tr>
                   <th>No.</th>
+                  <th>Jenis</th>
                   <th>Kategori Parenting</th>
                   <th>Kategori Parenting (En)</th>
                   <th>Action</th>
@@ -31,6 +32,15 @@
                   <div class="modal-body">
                     <form id="theForm" name="theForm" class="form-horizontal">
                       <input type="hidden" name="id_kategori_parenting" id="id_kategori_parenting">
+
+                      <div class="form-group">
+                        <label for="id_jenis_parenting" class="control-label">Jenis</label>
+                        <select class="form-control" id="id_jenis_parenting" name="id_jenis_parenting">
+                          <option disabled selected="true">Pilih</option>
+                          <option value="1">Artikel</option>
+                          <option value="2">Video</option>
+                        </select>
+                      </div>
 
                       <div class="form-group">
                         <label for="kategori_parenting" class="control-label">Kategori Parenting</label>
@@ -78,6 +88,7 @@
                 ajax: "{{ route('admin.kategori-parenting.index') }}",
                 columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'jenis', name: 'jenis'},
                 {data: 'kategori_parenting', name: 'kategori_parenting'},
                 {data: 'kategori_parenting_en', name: 'kategori_parenting_en'},
                 {data: 'action', name: 'action'},
@@ -99,6 +110,7 @@
                   $('#theModalHeading').html("Edit");
                   $('#saveBtn').val("save");
                   $('#id_kategori_parenting').val(data.id_kategori_parenting);
+                  $('#id_jenis_parenting').val(data.id_jenis_parenting);
                   $('#kategori_parenting').val(data.kategori_parenting);
                   $('#kategori_parenting_en').val(data.kategori_parenting_en);
                   $('#theModal').modal('show');

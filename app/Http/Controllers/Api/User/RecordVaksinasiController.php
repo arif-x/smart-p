@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RecordVaksinasi;
+use Carbon\Carbon;
 
 class RecordVaksinasiController extends Controller
 {
@@ -44,7 +45,7 @@ class RecordVaksinasiController extends Controller
             $data = RecordVaksinasi::create(
                 [
                     'id_anak' => $request->id_anak,
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => Carbon::now()->format('d/m/Y'),
                     'id_vaksin' => $request->id_vaksin,
                 ]
             );

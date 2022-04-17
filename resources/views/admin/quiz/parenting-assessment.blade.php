@@ -19,6 +19,7 @@
                   <th>Kategori Parenting Assessment (En)</th>
                   <th>Soal</th>
                   <th>Soal (En)</th>
+                  <th>Kunci Jawaban</th>
                   <th>Action</th>
                 </tr>
               </thead>  
@@ -48,6 +49,15 @@
                       <div class="form-group">
                         <label for="soal_en" class="control-label">Soal (En)</label>
                         <input type="text" class="form-control" id="soal_en" name="soal_en" required="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="kunci_jawaban" class="control-label">Kunci Jawaban</label>
+                        <select class="form-control" id="kunci_jawaban" name="kunci_jawaban">
+                          <option disabled selected="true">Pilih</option>
+                          <option value="1">Ya</option>
+                          <option value="0">Tidak</option>
+                        </select>
                       </div>
 
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
@@ -92,6 +102,7 @@
                 {data: 'kategori_parenting_assessment_en', name: 'kategori_parenting_assessment_en'},
                 {data: 'soal', name: 'soal'},
                 {data: 'soal_en', name: 'soal_en'},
+                {data: 'kunci', name: 'kunci'},
                 {data: 'action', name: 'action'},
                 ]
               });
@@ -115,6 +126,7 @@
                   $('#id_kategori_parenting_assessment').append(kategori_parenting_assessment).trigger('change');
                   $('#soal').val(data.soal);
                   $('#soal_en').val(data.soal_en);
+                  $('#kunci_jawaban').val(data.kunci_jawaban);
                   $('#theModal').modal('show');
                 })
               });

@@ -28,7 +28,17 @@ class ParentingAssessmentController extends Controller
 
                 return $btn;
             })
-            ->rawColumns(['action'])
+            ->addColumn('kunci', function($row){
+
+                if($row->kunci_jawaban == 0){
+                    $kunci = 'Tidak';
+                } else {
+                    $kunci = 'Ya';
+                }
+
+                return $kunci;
+            })
+            ->rawColumns(['action', 'kunci'])
             ->make(true);
         }
         return view('admin.quiz.parenting-assessment');
@@ -48,6 +58,7 @@ class ParentingAssessmentController extends Controller
                 'id_kategori_parenting_assessment' => $request->id_kategori_parenting_assessment,
                 'soal' => $request->soal,
                 'soal_en' => $request->soal_en,
+                'kunci_jawaban' => $request->kunci_jawaban,
             ]
         );
 

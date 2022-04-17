@@ -21,7 +21,7 @@ class ParentingAssessmentController extends Controller
 
         $data = KategoriParentingAssessment::get();
         $check_nilai = HistoryParentingAssessment::where('id_user', $request->id_user)->first();
-        $nilai = HistoryParentingAssessment::where('id_user', $request->id_user)->groupBy('id_kategori_parenting_assessment')->get();
+        
 
         $total_skor = 0;
         $total_nilai_ok = 0;
@@ -31,9 +31,7 @@ class ParentingAssessmentController extends Controller
         } else {
             for ($i = 0; $i < count($data); $i++) {
                 $id_kategori = $data[$i]['id_kategori_parenting_assessment'];
-                // query where untuk mengambil nilai terakhir
                 $where_bt_id_kategori = HistoryParentingAssessment::where('id_kategori_parenting_assessment', $id_kategori)->orderBy('id_history_parenting_assessment', 'DESC')->limit(1)->value('skor');
-                // echo $where_bt_id_kategori;
                 $total_nilai_ok += $where_bt_id_kategori;
             }
             $skor = $total_nilai_ok / count($data);
@@ -95,6 +93,21 @@ class ParentingAssessmentController extends Controller
             'status' => true,
             'message' => 'Data Didapat',
             'soal' => $soal,
+        ], 200);
+    }
+
+    public function jawab(Request $request){
+        $data = HistoryParentingAssessment::insert([
+            'id_user' => $request->id_user,
+            'id_kategori_parenting_assessment' => $request->id_kategori_parenting_assessment,
+            'skor' => $request->skor,
+            'tanggal_pengerjaan' => Carbon::now()->format('d/m/Y'),
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Ditambah',
+            'data' => $data,
         ], 200);
     }
 
