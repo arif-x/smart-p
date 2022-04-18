@@ -11,5 +11,5 @@ class Slider extends Model
     public $timestamps = FALSE;
     protected $table = 'slider';
     protected $guarded = [];
-    protected $primaryKey = 'id_slider';
+    protected $primaryKey = 'id_slide';
 }

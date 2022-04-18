@@ -94,6 +94,12 @@
           <span class="link-title">Vaksin</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ route('admin.slider.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Slider</span>
+        </a>
+      </li>
 
       <li class="nav-item nav-category">Quiz</li>
       <li class="nav-item">

@@ -129,6 +129,7 @@ Route::group([
     Route::resource('parenting', App\Http\Controllers\Web\Admin\Post\ParentingController::class, ['as' => 'admin']);
     Route::resource('vaksin', App\Http\Controllers\Web\Admin\Post\VaksinController::class, ['as' => 'admin']);
     Route::resource('development', App\Http\Controllers\Web\Admin\Post\DevelopmentController::class, ['as' => 'admin']);
+    Route::resource('slider', App\Http\Controllers\Web\Admin\Post\SliderController::class, ['as' => 'admin']);
 
     Route::resource('parenting-assessment', App\Http\Controllers\Web\Admin\Quiz\ParentingAssessmentController::class, ['as' => 'admin']);
 });
