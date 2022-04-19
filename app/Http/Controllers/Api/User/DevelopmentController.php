@@ -14,7 +14,7 @@ class DevelopmentController extends Controller
     public function index(Request $request){
         $data_kategori_development = KategoriDevelopment::get();
 
-        $data_development = Development::leftJoin('jawaban_development', 'jawaban_development.id_development', '=', 'development.id_development')->where('id_user', $request->id_user)->where('id_kategori_development', $data_kategori_development[0]->id_kategori_development)->where('id_anak', $request->id_anak)->orWhereNull('id_user')->orWhereNull('id_anak')->select('development.*', 'jawaban_development.id_user', 'jawaban_development.id_anak', 'jawaban_development.jawaban')->get();
+        $data_development = DB::select(DB::raw('select development.*, jawaban_development.id_user, jawaban_development.id_anak, jawaban_development.jawaban from `development` left join `jawaban_development` on `jawaban_development`.`id_development` = `development`.`id_development` and (`id_anak` = '.$request->id_anak.' and `id_user` = '.$request->id_user.') or (`id_user` is null and `id_anak` is null) where `id_kategori_development` = '.$data_kategori_development[0]->id_kategori_development.''));
 
         return response()->json([
             'status' => true,
@@ -28,7 +28,7 @@ class DevelopmentController extends Controller
     public function single(Request $request){
         $data_kategori_development = KategoriDevelopment::get();
 
-        $data_development = Development::leftJoin('jawaban_development', 'jawaban_development.id_development', '=', 'development.id_development')->where('id_user', $request->id_user)->where('id_kategori_development', $request->id_kategori_development)->where('id_anak', $request->id_anak)->orWhereNull('id_user')->orWhereNull('id_anak')->select('development.*', 'jawaban_development.id_user', 'jawaban_development.id_anak', 'jawaban_development.jawaban')->get();
+        $data_development = DB::select(DB::raw('select development.*, jawaban_development.id_user, jawaban_development.id_anak, jawaban_development.jawaban from `development` left join `jawaban_development` on `jawaban_development`.`id_development` = `development`.`id_development` and (`id_anak` = '.$request->id_anak.' and `id_user` = '.$request->id_user.') or (`id_user` is null and `id_anak` is null) where `id_kategori_development` = '.$request->id_kategori_development.''));
 
         return response()->json([
             'status' => true,
@@ -40,7 +40,7 @@ class DevelopmentController extends Controller
     }
 
     public function store(Request $request){
-        $check = JawabanDevelopment::where('id_user', $request->id_user)->where('id_development', $request->id_development)->first();
+        $check = JawabanDevelopment::where('id_user', $request->id_user)->where('id_anak', $request->id_anak)->where('id_development', $request->id_development)->first();
 
         if(empty($check)){
             $data = JawabanDevelopment::create([

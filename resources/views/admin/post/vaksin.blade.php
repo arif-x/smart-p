@@ -58,6 +58,16 @@
                         <input type="text" class="form-control" id="keterangan_vaksin_en" name="keterangan_vaksin_en" required="">
                       </div>
 
+                      <div class="form-group">
+                        <label for="detail_vaksin" class="control-label">Detail Vaksin</label>
+                        <textarea name="detail_vaksin" id="detail_vaksin" class="form-control"></textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="detail_vaksin_en" class="control-label">Detail Vaksin (En)</label>
+                        <textarea name="detail_vaksin_en" id="detail_vaksin_en" class="form-control"></textarea>
+                      </div>
+
                       <button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan</button>
                     </form>
                   </div>
@@ -80,6 +90,7 @@
               </div>
             </div>
 
+            <script src="https://cdn.tiny.cloud/1/m1nz6lkq0ki8c21mhmdrhi8pfa5sjru7d79jblmku8iu0e3u/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
             <script type="text/javascript">
              $(function () {
               $.ajaxSetup({
@@ -107,6 +118,8 @@
                 $('#theForm').trigger("reset");
                 $('#theModalHeading').html("Tambah Data");
                 $('#user').val(null).trigger('change');
+                tinymce.get("detail_vaksin").setContent('');
+                tinymce.get("detail_vaksin_en").setContent('');
                 $('#theModal').modal('show');
               });
 
@@ -121,6 +134,8 @@
                   $('#jadwal_vaksin').val(data.jadwal_vaksin);
                   $('#keterangan_vaksin').val(data.keterangan_vaksin);
                   $('#keterangan_vaksin_en').val(data.keterangan_vaksin_en);
+                  tinymce.get("detail_vaksin").setContent(data.detail_vaksin);
+                  tinymce.get("detail_vaksin_en").setContent(data.detail_vaksin_en);
                   $('#theModal').modal('show');
                 })
               });
@@ -140,7 +155,16 @@
                 $(this).html('Simpan');
 
                 $.ajax({
-                  data: $('#theForm').serialize(),
+                  data: {
+                    id_vaksin: $('#id_vaksin').val(),
+                    nama_vaksin: $('#nama_vaksin').val(),
+                    nama_vaksin_en: $('#nama_vaksin_en').val(),
+                    jadwal_vaksin: $('#jadwal_vaksin').val(),
+                    keterangan_vaksin: $('#keterangan_vaksin').val(),
+                    keterangan_vaksin_en: $('#keterangan_vaksin_en').val(),
+                    detail_vaksin: tinymce.get('detail_vaksin').getContent(),
+                    detail_vaksin_en: tinymce.get('detail_vaksin_en').getContent(),
+                  },
                   url: "{{ route('admin.vaksin.store') }}",
                   type: "POST",
                   dataType: 'json',
@@ -173,6 +197,38 @@
 
             });
           </script>
+          <script type="text/javascript">
+              tinymce.init({
+                selector: '#detail_vaksin',
+                height: 500,
+                menubar: false,
+                plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+              });
+              tinymce.init({
+                selector: '#detail_vaksin_en',
+                height: 500,
+                menubar: false,
+                plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+              });
+            </script>
         </div>
       </div>
     </div>

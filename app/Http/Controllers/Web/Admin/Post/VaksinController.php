@@ -50,6 +50,8 @@ class VaksinController extends Controller
                 'jadwal_vaksin' => $request->jadwal_vaksin,
                 'keterangan_vaksin' => $request->keterangan_vaksin,
                 'keterangan_vaksin_en' => $request->keterangan_vaksin_en,
+                'detail_vaksin' => $request->detail_vaksin,
+                'detail_vaksin_en' => $request->detail_vaksin_en,
             ]
         );
 
