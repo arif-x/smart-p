@@ -72,6 +72,16 @@
                         <img id="img-holder" style="margin-top:15px;margin-bottom:15px;height:auto;" src="">
                       </div> 
 
+                      <div class="form-group" id="vids">
+                        <label class="control-label">Video</label>
+                        <a id="lfms" data-input="url_video" data-preview="holderV" class="btn btn-primary text-white" type="button" style="width:100% !important">
+                          <i class="fa fa-video-o"></i> Pilih File
+                        </a>
+                        <input id="url_video" class="form-control mt-1" type="text" name="url_video" readonly>
+                      </div>
+                      <div id="holderV" style="margin-top:15px;margin-bottom:15px;height:auto;" class="text-center">
+                      </div> 
+
                       <div class="form-group">
                         <label for="konten_parenting" class="control-label">Konten Parenting</label>
                         <textarea name="konten_parenting" id="konten_parenting" class="form-control"></textarea>
@@ -107,6 +117,15 @@
             <script src="https://cdn.tiny.cloud/1/m1nz6lkq0ki8c21mhmdrhi8pfa5sjru7d79jblmku8iu0e3u/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
             <script type="text/javascript">
               $(document).ready(function(){
+                $('#id_jenis_parenting').on('change', function(){
+                  if($('#id_jenis_parenting').val() == 'Video'){
+                    $('#vids').show();
+                  } else if($('#id_jenis_parenting').val() == 'Artikel') {
+                    $('#vids').hide();
+                    $('#url_video').val('-');
+                  }
+                });
+
                 $('#img-holder').hide();
                 $('#text-holder').hide();
               });
@@ -314,6 +333,11 @@
                 height: 100% !important;
               }
             </style>
+            <script>
+              var route_prefix = "/filemanager";
+              {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+              $('#lfms').filemanager('file', {prefix: route_prefix});
+            </script>
           </div>
         </div>
       </div>

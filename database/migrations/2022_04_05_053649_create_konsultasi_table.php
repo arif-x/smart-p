@@ -17,10 +17,9 @@ class CreateKonsultasiTable extends Migration
             $table->increments('id_konsultasi');
             $table->string('id_kategori_konsultasi');
             $table->string('id_user');
-            $table->string('nama_user');
             $table->string('tanggal_konsultasi');
+            $table->string('pertanyaan');
             $table->string('jawaban_konsultasi');
-            $table->string('jawaban_konsultasi_en');
             $table->string('jumlah_like');
         });
     }

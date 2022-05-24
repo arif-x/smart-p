@@ -50,6 +50,7 @@ class ParentingController extends Controller
                 'judul_parenting' => $request->judul_parenting,
                 'judul_parenting_en' => $request->judul_parenting_en,
                 'thumnile_parenting' => $request->thumnile_parenting,
+                'video_parenting' => $request->url_video,
                 'konten_parenting' => $request->konten_parenting,
                 'konten_parenting_en' => $request->konten_parenting_en
             ]

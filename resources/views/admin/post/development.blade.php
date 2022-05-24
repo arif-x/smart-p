@@ -492,7 +492,7 @@
             <script>
               var route_prefix = "/filemanager";
               {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-              $('#lfms').filemanager('video', {prefix: route_prefix});
+              $('#lfms').filemanager('file', {prefix: route_prefix});
             </script>
             <style type="text/css">
               #holders img {

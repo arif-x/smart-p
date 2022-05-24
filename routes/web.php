@@ -100,8 +100,10 @@ Route::group([
     });
 });
 
+
 Route::group([
     'prefix' => 'admin',
+    'middleware' => 'auth',
 ], function(){
     Route::post('data/jenis-parenting', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'jenisParenting'])->name('data.jenis.parenting');
     Route::post('data/kategori-nutrition', [App\Http\Controllers\Web\Admin\Data\DataController::class, 'kategoriNutrition'])->name('data.kategori.nutrition');
@@ -112,6 +114,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'admin',
+    'middleware' => 'auth',
 ], function(){
     Route::resource('jenis-parenting', App\Http\Controllers\Web\Admin\Jenis\ParentingController::class, ['as' => 'admin']);
     Route::resource('kategori-parenting', App\Http\Controllers\Web\Admin\Kategori\ParentingController::class, ['as' => 'admin']);
@@ -130,6 +133,9 @@ Route::group([
     Route::resource('vaksin', App\Http\Controllers\Web\Admin\Post\VaksinController::class, ['as' => 'admin']);
     Route::resource('development', App\Http\Controllers\Web\Admin\Post\DevelopmentController::class, ['as' => 'admin']);
     Route::resource('slider', App\Http\Controllers\Web\Admin\Post\SliderController::class, ['as' => 'admin']);
+
+    Route::resource('rekap', App\Http\Controllers\Web\Admin\Data\RekapController::class, ['as' => 'admin']);
+    Route::resource('konsultasi', App\Http\Controllers\Web\Admin\Data\KonsultasiController::class, ['as' => 'admin']);
 
     Route::resource('parenting-assessment', App\Http\Controllers\Web\Admin\Quiz\ParentingAssessmentController::class, ['as' => 'admin']);
 });

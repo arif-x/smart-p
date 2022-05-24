@@ -13,7 +13,7 @@
     <ul class="nav">
       <li class="nav-item nav-category">Menu</li>
       <li class="nav-item">
-        <a href="/dashboard" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Dashboard</span>
         </a>
@@ -77,6 +77,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{ route('admin.development.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Development</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{ route('admin.nutrition.index') }}" class="nav-link">
           <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Nutrition</span>
@@ -106,6 +112,14 @@
         <a href="{{ route('admin.parenting-assessment.index') }}" class="nav-link">
           <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Parenting Assessment</span>
+        </a>
+      </li>
+
+      <li class="nav-item nav-category">Data</li>
+      <li class="nav-item">
+        <a href="{{ route('admin.rekap.index') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Rekap Anak</span>
         </a>
       </li>
 

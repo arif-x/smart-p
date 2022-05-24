@@ -26,6 +26,8 @@ class ParentingAssessmentController extends Controller
         $total_skor = 0;
         $total_nilai_ok = 0;
 
+        $skor = 0;
+
         if (empty($check_nilai)) {
             // gak ngapain
         } else {
