@@ -17,6 +17,8 @@
                   <th>No.</th>
                   <th>Judul Artikel</th>
                   <th>Judul Artikel (En)</th>
+                  <th>Kategori Artikel</th>
+                  <th>Kategori Artikel (En)</th>
                   <th>Label</th>
                   <th>Label (En)</th>
                   <th>Action</th>
@@ -42,6 +44,20 @@
                       <div class="form-group">
                         <label for="judul_artikel_en" class="control-label">Judul Artikel (En)</label>
                         <input type="text" name="judul_artikel_en" id="judul_artikel_en" class="form-control">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="id_kategori_artikel" class="control-label">Kategori Artikel</label>
+                        <select name="id_kategori_artikel" id="id_kategori_artikel" class="form-control">
+                          <option value="" disabled selected>Pilih</option>
+                          @foreach($kategori_artikel as $key => $value)
+                          <option value="{{ $key }}">{{ $value }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+
+                      <div class="form-group videos">
+                        <label class="control-label">Video</label><input id="url_video" class="form-control mt-1" type="text" name="url_video">
                       </div>
 
                       <div class="form-group">
@@ -104,6 +120,15 @@
               $(document).ready(function(){
                 $('#img-holder').hide();
                 $('#text-holder').hide();
+
+                $('#id_kategori_artikel').on('change', function(){
+                  if($('#id_kategori_artikel').val() != '2'){
+                    $('.videos').hide();
+                    $('#url_video').val('-');
+                  } else if($('#id_kategori_artikel').val() == '2') {
+                    $('.videos').show();
+                  }
+                });
               });
               $(function () {
                 $.ajaxSetup({
@@ -120,6 +145,8 @@
                   {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                   {data: 'judul_artikel', name: 'judul_artikel'},
                   {data: 'judul_artikel_en', name: 'judul_artikel_en'},
+                  {data: 'kategori_artikel', name: 'kategori_artikel'},
+                  {data: 'kategori_artikel_en', name: 'kategori_artikel_en'},
                   {data: 'label', name: 'label'},
                   {data: 'label_en', name: 'label_en'},
                   {data: 'action', name: 'action'},
@@ -148,7 +175,9 @@
                     $('#judul_artikel_en').val(data.judul_artikel_en);
                     $('#label').val(data.label);
                     $('#label_en').val(data.label_en);
+                    $('#url_video').val(data.url_video);
                     $('#thumbnail').val(data.thumbnail);
+                    $('#id_kategori_artikel').val(data.id_kategori_artikel);
                     tinymce.get("konten").setContent(data.konten);
                     tinymce.get("konten_en").setContent(data.konten_en);
                     $('#holder').attr('src', data.thumbnail);
@@ -180,7 +209,9 @@
                       judul_artikel_en: $('#judul_artikel_en').val(),
                       label: $('#label').val(),
                       label_en: $('#label_en').val(),
+                      url_video: $('#url_video').val(),
                       thumbnail: $('#thumbnail').val(),
+                      id_kategori_artikel: $('#id_kategori_artikel').val(),
                       konten: tinymce.get('konten').getContent(),
                       konten_en: tinymce.get('konten_en').getContent(),
                     },
@@ -252,6 +283,7 @@
               var route_prefix = "/filemanager";
               {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
               $('#lfm').filemanager('image', {prefix: route_prefix});
+              $('#lfms').filemanager('file', {prefix: route_prefix});
             </script>
             <style type="text/css">
               #holders img {

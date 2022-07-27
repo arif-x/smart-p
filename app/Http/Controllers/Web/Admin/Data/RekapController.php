@@ -17,6 +17,14 @@ class RekapController extends Controller
             return Datatables::of($data)->addIndexColumn()->make(true);
         }
         return view('admin.data.rekap');
-        // echo json_encode($data);
+    }  
+
+    public function store(){
+
+    }
+
+    public function edit($id){
+        $data = DB::select(DB::raw('select * from `anak` left join `record_perkembangan` on `record_perkembangan`.`id_anak` = `anak`.`id_anak` or `anak`.`id_anak` is null GROUP BY `anak`.`id_anak` LIMIT 1'));
+        echo json_encode($data);
     }
 }

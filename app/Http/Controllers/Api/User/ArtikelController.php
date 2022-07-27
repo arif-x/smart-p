@@ -16,7 +16,24 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        $data = Artikel::get();
+        $data = Artikel::where('id_kategori_artikel', 1)->get();
+        if(empty($data)){
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Gagal Didapat'
+            ], 201);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Didapat',
+                'data' => $data
+            ], 200);
+        }
+    }
+
+    public function indexVideo()
+    {
+        $data = Artikel::where('id_kategori_artikel', 2)->get();
         if(empty($data)){
             return response()->json([
                 'status' => false,

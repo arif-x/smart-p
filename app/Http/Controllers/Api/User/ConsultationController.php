@@ -6,12 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Konsultasi;
 use App\Models\KategoriKonsultasi;
+use App\Models\LikeKonsultasi;
 
 class ConsultationController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $data_kategori_konsultasi = KategoriKonsultasi::get();
         $data_konsultasi = Konsultasi::join('users', 'users.id_user', '=', 'konsultasi.id_user')->orderBy('jumlah_like', 'DESC')->select('users.email as nama_user', 'konsultasi.*')->get();
+
+        $data_like;
+        foreach ($data_konsultasi as $key => $value) {
+            $value['like'] = '-';
+            $like = LikeKonsultasi::where('id_konsultasi', $value['id_konsultasi'])->where('id_user', $request->id_user)->first();
+            if(empty($like)){
+                $data_like = '0';
+                $value['like'] = $data_like;
+            } else {
+                $data_like = '1';
+                $value['like'] = $data_like;
+            }
+        }
 
         return response()->json([
             'status' => true,
@@ -23,6 +37,20 @@ class ConsultationController extends Controller
 
     public function getByKategori(Request $request){
         $data_konsultasi = Konsultasi::join('users', 'users.id_user', '=', 'konsultasi.id_user')->orderBy('jumlah_like', 'DESC')->where('id_kategori_konsultasi', $request->id_kategori_konsultasi)->orderBy('tanggal_konsultasi', 'DESC')->select('users.email as nama_user', 'konsultasi.*')->get();
+
+        $data_like;
+        foreach ($data_konsultasi as $key => $value) {
+            $value['like'] = '-';
+            $like = LikeKonsultasi::where('id_konsultasi', $value['id_konsultasi'])->where('id_user', $request->id_user)->first();
+            if(empty($like)){
+                $data_like = '0';
+                $value['like'] = $data_like;
+            } else {
+                $data_like = '1';
+                $value['like'] = $data_like;
+            }
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Data Didapat',

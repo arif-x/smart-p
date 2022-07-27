@@ -15,10 +15,6 @@ class ParentingAssessmentController extends Controller
 {
     public function kategori(Request $request)
     {
-
-        // nilai di ambil dulu nilai terakhir dari by kategori by  user
-        // 2 
-
         $data = KategoriParentingAssessment::get();
         $check_nilai = HistoryParentingAssessment::where('id_user', $request->id_user)->first();
         
@@ -29,7 +25,7 @@ class ParentingAssessmentController extends Controller
         $skor = 0;
 
         if (empty($check_nilai)) {
-            // gak ngapain
+            // do nothing
         } else {
             for ($i = 0; $i < count($data); $i++) {
                 $id_kategori = $data[$i]['id_kategori_parenting_assessment'];
@@ -78,7 +74,7 @@ class ParentingAssessmentController extends Controller
 
     public function getSoalByKategori(Request $request)
     {
-        $soal = SoalParentingAssessment::where('id_kategori_parenting_assessment', $request->id_kategori_parenting_assessment)->get();
+        $data = HistoryParentingAssessment::join('kategori_parenting_assessment', 'kategori_parenting_assessment.id_kategori_parenting_assessment', '=', 'history_parenting_assessment.id_kategori_parenting_assessment')->where('id_user', $request->id_user)->orderBy('id_history_parenting_assessment', 'DESC')->get();
 
         return response()->json([
             'status' => true,
@@ -109,6 +105,16 @@ class ParentingAssessmentController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Data Ditambah',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function history(Request $request){
+        $data = HistoryParentingAssessment::where('id_user', $request->id_user)->orderBy('id_history_parenting_assessment', 'DESC')->get();
+        
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Didapat',
             'data' => $data,
         ], 200);
     }

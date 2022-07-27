@@ -25,7 +25,7 @@ Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::c
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/test', [TestController::class, 'index'])->name('test');
+// Route::get('/test', [TestController::class, 'index'])->name('test');
 
 
 Route::group([
@@ -44,6 +44,7 @@ Route::group([
     Route::post('/home/grafik', [App\Http\Controllers\Api\User\RecordController::class, 'index']);
     Route::post('/home/vaksinasi', [App\Http\Controllers\Api\User\VaksinasiCheckerController::class, 'index']);    
     Route::post('/home/artikel', [App\Http\Controllers\Api\User\ArtikelController::class, 'index']);    
+    Route::post('/home/artikel-video', [App\Http\Controllers\Api\User\ArtikelController::class, 'indexVideo']);
 
     Route::post('/home/nutrition', [App\Http\Controllers\Api\User\NutritionTrackerController::class, 'index']);    
     Route::post('/home/nutrition/kategori', [App\Http\Controllers\Api\User\NutritionTrackerController::class, 'getByKategori']);
@@ -69,6 +70,15 @@ Route::group([
     Route::post('/home/parenting-assessment/soal/jawaban/submit', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'submit']);
     Route::post('/home/parenting-assessment/soal/jawaban/jawab', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'jawab']);
     Route::post('/home/parenting-assessment/histori', [App\Http\Controllers\Api\User\ParentingAssessmentController::class, 'history']);
+
+    Route::post('/home/konsultasi/like', [App\Http\Controllers\Api\User\LikeKonsultasiController::class, 'store']);
+    Route::post('/home/konsultasi/dislike', [App\Http\Controllers\Api\User\LikeKonsultasiController::class, 'destroy']);
+ 
+    Route::post('/home/logbook/index', [App\Http\Controllers\Api\User\LogBookController::class, 'index']);
+    Route::post('/home/logbook/single', [App\Http\Controllers\Api\User\LogBookController::class, 'single']);
+    Route::post('/home/logbook/insert', [App\Http\Controllers\Api\User\LogBookController::class, 'store']);
+    Route::post('/home/logbook/update', [App\Http\Controllers\Api\User\LogBookController::class, 'update']);
+    Route::post('/home/logbook/delete', [App\Http\Controllers\Api\User\LogBookController::class, 'destroy']);
     
 
     Route::group([
@@ -117,6 +127,7 @@ Route::group([
     'middleware' => 'auth',
 ], function(){
     Route::resource('jenis-parenting', App\Http\Controllers\Web\Admin\Jenis\ParentingController::class, ['as' => 'admin']);
+    Route::resource('kategori-artikel', App\Http\Controllers\Web\Admin\Kategori\ArtikelController::class, ['as' => 'admin']);
     Route::resource('kategori-parenting', App\Http\Controllers\Web\Admin\Kategori\ParentingController::class, ['as' => 'admin']);
     Route::resource('kategori-development', App\Http\Controllers\Web\Admin\Kategori\DevelopmentController::class, ['as' => 'admin']);
     Route::resource('kategori-nutrition', App\Http\Controllers\Web\Admin\Kategori\NutritionController::class, ['as' => 'admin']);
@@ -136,6 +147,8 @@ Route::group([
 
     Route::resource('rekap', App\Http\Controllers\Web\Admin\Data\RekapController::class, ['as' => 'admin']);
     Route::resource('konsultasi', App\Http\Controllers\Web\Admin\Data\KonsultasiController::class, ['as' => 'admin']);
+    Route::resource('logbook', App\Http\Controllers\Web\Admin\Data\LogBookController::class, ['as' => 'admin']);
+    Route::resource('history-parenting-assessment', App\Http\Controllers\Web\Admin\Data\HistoryParentingAssessmentController::class, ['as' => 'admin']);
 
     Route::resource('parenting-assessment', App\Http\Controllers\Web\Admin\Quiz\ParentingAssessmentController::class, ['as' => 'admin']);
 });

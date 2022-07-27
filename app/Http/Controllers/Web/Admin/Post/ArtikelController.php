@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
+use App\Models\KategoriArtikel;
 use DataTables;
 
 class ArtikelController extends Controller
@@ -16,7 +17,7 @@ class ArtikelController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Artikel::orderBy('id_artikel')->get();
+        $data = Artikel::join('kategori_artikel', 'kategori_artikel.id_kategori_artikel', '=', 'artikel.id_kategori_artikel')->select('artikel.*', 'kategori_artikel.kategori_artikel', 'kategori_artikel.kategori_artikel_en')->orderBy('id_artikel')->get();
         if($request->ajax()){
             return Datatables::of($data)
             ->addIndexColumn()
@@ -31,7 +32,10 @@ class ArtikelController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('admin.post.artikel');
+
+        $kategori_artikel = KategoriArtikel::pluck('kategori_artikel', 'id_kategori_artikel');
+
+        return view('admin.post.artikel', compact('kategori_artikel'));
     }
 
     /**
@@ -47,11 +51,13 @@ class ArtikelController extends Controller
             [
                 'judul_artikel' => $request->judul_artikel,
                 'judul_artikel_en' => $request->judul_artikel_en,
+                'url_video' => $request->url_video,
                 'thumbnail' => $request->thumbnail,
                 'label' => $request->label,
                 'label_en' => $request->label_en,
                 'konten' => $request->konten,
-                'konten_en' => $request->konten_en
+                'konten_en' => $request->konten_en,
+                'id_kategori_artikel' => $request->id_kategori_artikel
             ]
         );
 
@@ -66,7 +72,7 @@ class ArtikelController extends Controller
      */
     public function edit($id)
     {
-        $data = Artikel::find($id);
+        $data = Artikel::join('kategori_artikel', 'kategori_artikel.id_kategori_artikel', '=', 'artikel.id_kategori_artikel')->select('artikel.*', 'kategori_artikel.kategori_artikel', 'kategori_artikel.kategori_artikel_en')->find($id);
         return response()->json($data);
     }
 
